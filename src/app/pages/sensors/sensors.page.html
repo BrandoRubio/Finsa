@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false">
+        <ion-button size="large" (click)="ToggleMenu()">
+          <ion-icon name="menu-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="../../assets/images/logo.webp" style="height: 45px;" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-breadcrumbs>
+    <ion-breadcrumb [routerLink]="['/park', parkId]" [state]="{ parkName: parkName }">
+      {{ parkName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb [routerLink]="['/park', parkId, 'plant', plantId]" [state]="{ name: plantName }">
+      {{ plantName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb>Sensores</ion-breadcrumb>
+  </ion-breadcrumbs>
+
+</ion-content>

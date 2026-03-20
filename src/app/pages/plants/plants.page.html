@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false">
+        <ion-button size="large" (click)="ToggleMenu()">
+          <ion-icon name="menu-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="../../assets/images/logo.webp" style="height: 45px;" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- plant-detail.page.html -->
+<!-- plant-detail.page.html -->
+<ion-content class="ion-padding">
+  <ion-breadcrumbs>
+    <ion-breadcrumb [routerLink]="['/park', parkId]" [state]="{ parkName: parkName }">
+      {{ parkName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb [routerLink]="['/park', parkId, 'plant', plantId]" [state]="{ name: plantName }">
+      {{ plantName }}
+    </ion-breadcrumb>
+  </ion-breadcrumbs>
+  <ion-grid>
+    <ion-row>
+      <!-- DISPOSITIVOS -->
+      <ion-col size="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
+        <ion-card button [routerLink]="['/park', parkId, 'plant', plantId, 'devices']"
+          [state]="{ parkName: parkName, plantName: plantName  }" class="nav-card">
+          <ion-card-header>
+            <img src="assets/cards/devices.svg" class="card-img" />
+          </ion-card-header>
+          <ion-card-content>
+            <h1 class="card-count">{{ deviceCount }}</h1>
+            <h2 class="card-title">Dispositivos</h2>
+            <p class="card-sub">activos en planta</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- DASHBOARDS -->
+      <ion-col size="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
+        <ion-card button [routerLink]="['/park', parkId, 'plant', plantId, 'dashboards']"
+          [state]="{ parkName: parkName, plantName: plantName  }" class="nav-card">
+          <ion-card-header>
+            <img src="assets/cards/dashboards.svg" class="card-img" />
+          </ion-card-header>
+          <ion-card-content>
+            <h1 class="card-count">{{ dashboardCount }}</h1>
+            <h2 class="card-title">Dashboards</h2>
+            <p class="card-sub">tableros configurados</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- USUARIOS -->
+      <ion-col size="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
+        <ion-card button [routerLink]="['/park', parkId, 'plant', plantId, 'plant-users']"
+          [state]="{ parkName: parkName, plantName: plantName  }" class="nav-card">
+          <ion-card-header>
+            <img src="assets/cards/users.svg" class="card-img" />
+          </ion-card-header>
+          <ion-card-content>
+            <h1 class="card-count">{{ userCount }}</h1>
+            <h2 class="card-title">Usuarios</h2>
+            <p class="card-sub">con acceso</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- SENSORES -->
+      <ion-col size="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
+        <ion-card button [routerLink]="['/park', parkId, 'plant', plantId, 'sensors']"
+          [state]="{ parkName: parkName, plantName: plantName  }" class="nav-card">
+          <ion-card-header>
+            <img src="assets/cards/sensors.svg" class="card-img" />
+          </ion-card-header>
+          <ion-card-content>
+            <h1 class="card-count">{{ sensorCount }}</h1>
+            <h2 class="card-title">Sensores</h2>
+            <p class="card-sub">variables monitoreadas</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- EVENTOS -->
+      <ion-col size="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
+        <ion-card button [routerLink]="['/park', parkId, 'plant', plantId, 'events']"
+          [state]="{ parkName: parkName, plantName: plantName  }" class="nav-card">
+          <ion-card-header>
+            <img src="assets/cards/events.svg" class="card-img" />
+          </ion-card-header>
+          <ion-card-content>
+            <h1 class="card-count">{{ eventCount }}</h1>
+            <h2 class="card-title">Eventos</h2>
+            <p class="card-sub">alertas configuradas</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

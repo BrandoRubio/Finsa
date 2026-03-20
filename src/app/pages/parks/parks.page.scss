@@ -1,0 +1,172 @@
+ion-title {
+  text-align: center;
+}
+
+ion-accordion {
+
+  /* 🔲 CONTENEDOR GENERAL */
+  border: 1px solid var(--ion-border-color, rgba(0, 0, 0, 0.12));
+  border-radius: 12px;
+  overflow: hidden;
+
+  /* 🔹 HEADER */
+  ion-item[slot="header"] {
+    --background: transparent;
+    border-bottom: 1px solid var(--ion-border-color, rgba(0, 0, 0, 0.08));
+  }
+
+  /* 🔹 HEADER ACTIVO */
+  &.accordion-expanded {
+    border-color: rgba(var(--ion-color-primary-rgb), 0.4);
+  }
+
+  &.accordion-expanded ion-item[slot="header"] {
+    --background: transparent;
+  }
+
+  /* 🔹 CONTENIDO */
+  [slot="content"] {
+    background: transparent;
+    border: none;
+  }
+}
+
+ion-accordion {
+  background: transparent !important;
+
+  &::part(header) {
+    background: transparent;
+  }
+
+  &::part(content) {
+    background: transparent;
+  }
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+
+  ion-button {
+    --color: var(--ion-color-medium);
+    --border-radius: 50%;
+    --padding-start: 8px;
+    --padding-end: 8px;
+
+    &.active {
+      --color: var(--ion-color-primary);
+    }
+  }
+}
+
+.sensors-content {
+  padding: 12px 16px 16px;
+}
+
+.sensors-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sensor-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 10px;
+  border-radius: 12px;
+
+  background: var(--ion-color-light);
+  border: 1px solid var(--ion-border-color, rgba(0, 0, 0, 0.08));
+
+  flex: 1 1 120px;
+  max-width: 160px;
+}
+
+/* 🔵 ICONO ESTILO IONIC */
+.sensor-icon-wrap {
+  min-width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+  border: 1.5px solid var(--ion-color-primary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(var(--ion-color-primary-rgb), 0.08);
+
+  ion-icon {
+    font-size: 16px;
+    color: var(--ion-color-primary);
+  }
+}
+
+/* 📦 CONTENIDO */
+.sensor-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 🏷️ LABEL tipo flotante */
+.sensor-title {
+  font-size: 10px;
+  color: var(--ion-color-medium);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+/* 🔢 VALOR */
+.sensor-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ion-text-color);
+  line-height: 1;
+
+  small {
+    font-size: 10px;
+    margin-left: 2px;
+    color: var(--ion-color-medium);
+  }
+
+  &.no-data {
+    font-size: 12px;
+    color: var(--ion-color-medium);
+  }
+}
+
+.grid-view {
+  --ion-grid-padding: 0;
+  --ion-grid-column-padding: 6px;
+}
+
+.device-card {
+  border-radius: 14px;
+  --background: var(--ion-card-background);
+  border: 0.5px solid var(--ion-border-color, rgba(0, 0, 0, 0.08));
+
+  .device-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .device-icon {
+    font-size: 28px;
+    color: var(--ion-color-primary);
+  }
+
+  ion-card-title {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  ion-card-subtitle {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,143 @@
+<ion-app>
+  <p-confirmDialog [style]="{ width: '450px' }" />
+  <ion-split-pane contentId="main-content" when="(min-width: 2000px)">
+    <ion-menu contentId="main-content" type="overlay" *ngIf="showMenu">
+      <ion-header class="background-header">
+        <ion-toolbar>
+          <ion-title></ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <div class="menu-wrapper">
+        <!-- Panel completo -->
+        <div class="menu-panel">
+          <!-- Header -->
+          <div class="menu-header">
+            <div class="menu-brand">
+              <h2>MES</h2>
+            </div>
+
+            <!-- Separador -->
+            <div class="menu-separator"></div>
+
+            <!-- Usuario actual -->
+            <ion-menu-toggle auto-hide="false">
+              <div class="user-profile-section" [routerLink]="['/settings/user']">
+                <ion-avatar>
+                  <img src="../assets/images/avatar.png" alt="usuario" />
+                </ion-avatar>
+                <div class="user-details">
+                  <h3>{{ username }}</h3>
+                  <p>Ver perfil</p>
+                </div>
+                <ion-button fill="clear" id="popover-button-user" class="button-panel"
+                  (click)="$event.stopPropagation()">
+                  <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-menu-toggle>
+
+            <ion-popover trigger="popover-button-user" [dismissOnSelect]="true">
+              <ng-template>
+                <ion-content>
+                  <ion-list>
+                    <ion-menu-toggle auto-hide="false">
+                      <ion-item [routerLink]="['/settings']" lines="none" detail="false" button>
+                        <ion-icon slot="start" name="settings-outline" color="primary"></ion-icon>
+                        <ion-label>Ajustes</ion-label>
+                      </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle auto-hide="false">
+                      <ion-item (click)="LogOut()" lines="none" detail="false" button>
+                        <ion-icon slot="start" name="power-outline" color="danger"></ion-icon>
+                        <ion-label>Salir</ion-label>
+                      </ion-item>
+                    </ion-menu-toggle>
+                  </ion-list>
+                </ion-content>
+              </ng-template>
+            </ion-popover>
+          </div>
+
+          <!-- Contenido del menú -->
+          <ion-content style="height: calc(100vh - 240px);" class="menu-content">
+
+            <!-- Sección de Navegación -->
+            <div class="navigation-wrapper">
+              <div class="navigation-title">
+                <ion-text> NAVEGACIÓN</ion-text>
+              </div>
+              <!-- Acordeón de Tableros -->
+              <ion-accordion-group [multiple]="true" [value]="openAccordions">
+                <ion-accordion *ngFor="let park of ParksArray" [value]="'park-' + park.park_id">
+                  <ion-item slot="header" lines="none" button class="menu-header-item">
+                    <ion-icon slot="start" name="business-outline" class="menu-icon" color="secondary"></ion-icon>
+                    <ion-label class="menu-label">{{ park.name }}</ion-label>
+                    <ion-buttons slot="end">
+                      <ion-button fill="clear" shape="round" size="small" [routerLink]="['/park', park.park_id]"
+                        (click)="$event.stopPropagation()" [state]="{ parkName: park.name }"
+                        style="--border-radius: 50%; --padding-start: 6px; --padding-end: 6px;">
+                        <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+                      </ion-button>
+                    </ion-buttons>
+                  </ion-item>
+                  <div slot="content" class="accordion-content">
+                    <ion-list class="menu-list">
+                      <ion-menu-toggle auto-hide="false" *ngFor="let plant of park.plants">
+                        <ion-item detail="false" button lines="none" class="submenu-item"
+                          [routerLink]="['/park', park.park_id, 'plant', plant.plant_id]"
+                          [state]="{ parkName: park.name, plantName: plant.name }" routerLinkActive="selected">
+                          <ion-icon slot="start" name="cube-outline" color="secondary"></ion-icon>
+                          <ion-label>
+                            <h3>{{ plant.name }}</h3>
+                            <p>{{ plant.description }}</p>
+                          </ion-label>
+                        </ion-item>
+                      </ion-menu-toggle>
+                    </ion-list>
+                  </div>
+
+                </ion-accordion>
+              </ion-accordion-group>
+              <!-- Configuraciones -->
+              <ion-accordion-group [multiple]="true" [value]="'settings'" *ngIf="isMaster()">
+                <ion-accordion value="settings">
+                  <ion-item slot="header" lines="none" button class="menu-header-item">
+                    <ion-icon slot="start" name="settings-outline" class="menu-icon" color="secondary"></ion-icon>
+                    <ion-label class="menu-label">Configuraciones</ion-label>
+                  </ion-item>
+                  <div slot="content" class="accordion-content">
+                    <ion-list class="menu-list">
+                      <ion-menu-toggle auto-hide="false">
+                        <ion-item [routerLink]="['/finsa-users']" routerLinkActive="selected" detail="false" button
+                          lines="none" class="submenu-item">
+                          <ion-icon slot="start" name="people-outline" color="secondary"></ion-icon>
+                          <ion-label>Usuarios</ion-label>
+                        </ion-item>
+                      </ion-menu-toggle>
+                    </ion-list>
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
+            </div>
+          </ion-content>
+
+          <!-- Footer -->
+          <ion-footer class="menu-footer ion-no-border">
+            <ion-toolbar>
+              <ion-item lines="none">
+                <ion-label>Modo oscuro</ion-label>
+                <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="ChangeColorMode()"
+                  color="primary"></ion-toggle>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-note>Versión: 1.0.0</ion-note>
+              </ion-item>
+            </ion-toolbar>
+          </ion-footer>
+        </div>
+      </div>
+    </ion-menu>
+
+    <ion-router-outlet [animated]="false" id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

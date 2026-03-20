@@ -1,0 +1,113 @@
+<ion-card [ngStyle]="widgetData.borderFlag == 'Y' ? {'border': '.2px solid ' + widgetData.color} : {}">
+  <ion-toolbar [ngStyle]="{'--background': widgetData.color}">
+    <ion-buttons slot="end">
+      <ion-button title="Mover" cdkDragHandle class="drag-handle">
+        <ion-icon slot="icon-only" name="move-outline" [ngStyle]="{'color': widgetTextColor}"></ion-icon>
+      </ion-button>
+      <ion-button id="popover-spline-${{data['dashboard_id']}}" title="Opciones">
+        <ion-icon slot="icon-only" name="ellipsis-vertical" [ngStyle]="{'color': widgetTextColor}"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-card-title [ngStyle]="{'color': widgetTextColor}">{{widgetData.name}} </ion-card-title>
+  </ion-toolbar>
+
+  <ion-card-content>
+    <div class="indicator-container">
+      <div class="circle-indicator" [ngClass]="isOn ? 'on' : 'off'" [ngStyle]="{
+      'border': '4px solid ' + widgetData.sensors[0].maxColor,
+      'background': isOn ? widgetData.sensors[0].maxColor : 'var(--ion-color-light)',
+      'color': isOn ? 'white' : widgetData.sensors[0].maxColor
+    }">
+        <div class="onoff-text">
+          <span class="main-state" [ngStyle]="{'color': isOn ? widgetOnOffTextColor : 'var(--ion-color-dark)'}">{{ isOn
+            ? 'ON' : 'OFF' }}</span>
+          <ion-text [ngStyle]="{'color': isOn ? widgetOnOffTextColor : 'var(--ion-color-dark)'}">
+            {{widgetData.sensors[0].sensor_name + ': ' +lastValue}} {{ widgetData.sensors[0].uom || '' }}</ion-text>
+        </div>
+      </div>
+    </div>
+    <ion-item lines="none" style="align-self: stretch" class="ion-text-center">
+      <ion-label color="medium">
+        Última actualización: {{ lastDate | date: 'hh:mm a dd/MM/yyyy' }}
+      </ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-popover trigger="popover-spline-${{data['dashboard_id']}}" [dismissOnSelect]="true" showBackdrop="false">
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item [button]="true" [detail]="false" (click)="editChart()">Editar <ion-icon slot="start"
+            name="pencil-outline" color="success"></ion-icon></ion-item>
+        <ion-item [button]="true" [detail]="false" (click)="deleteChart()">Eliminar <ion-icon slot="start"
+            name="trash-outline" color="danger"></ion-icon></ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<ion-modal [isOpen]="isModalOpen" (ionModalWillDismiss)="isModalOpen = false" [focusTrap]="false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Editar widget</ion-title>
+        <ion-buttons slot="end">
+          <ngx-colors ngx-colors-trigger acceptLabel="Aceptar" cancelLabel="Cancelar"
+            [(ngModel)]="copyWidgetData.color"></ngx-colors>
+          <ion-button (click)="isModalOpen = false">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-input type="text" placeholder="" [(ngModel)]="copyWidgetData.name" style="text-align: right;">
+          <div slot="label"><ion-text color="primary">Nombre:</ion-text></div>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" slot="start">Tipo:</ion-label>
+        <ion-label slot="end"><strong>On Off</strong></ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-toggle [checked]="copyWidgetData.borderFlag == 'Y'"
+          (ionChange)="copyWidgetData.borderFlag = $event.detail.checked ? 'Y' : 'N'">
+          Borde
+        </ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Máquina:" color="primary" [(ngModel)]="copyWidgetData.sensors[0].machine_id"
+          label-placement="floating" interface="popover">
+          <ion-select-option *ngFor="let mach of machines" [value]="mach.machine_id">
+            {{ mach.machine_name }}
+          </ion-select-option>
+        </ion-select>
+        <ion-select label="Sensor:" color="primary" [(ngModel)]="copyWidgetData.sensors[0].sensor_id"
+          (ionChange)="onSensorChange($event)" label-placement="floating" interface="popover">
+          <ion-select-option *ngFor="let s of getSensorsForMachine(copyWidgetData.sensors[0].machine_id)"
+            [value]="s.sensor_id">
+            {{ s.sensor_name }}
+          </ion-select-option>
+        </ion-select>
+        <ion-input type="text" placeholder="UoM" [(ngModel)]="copyWidgetData.sensors[0].uom"
+          style="text-align: right; max-width: 80px;">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="" [(ngModel)]="copyWidgetData.sensors[0].max">
+          <div slot="label"><ion-text color="primary">Apagado menor a:</ion-text></div>
+        </ion-input>
+        <div slot="end" style="display: flex; align-items: center; gap: 10px; width: 42%;">
+          <ion-label color="primary" style="white-space: nowrap; margin: 0;">Color encendido:</ion-label>
+          <ngx-colors ngx-colors-trigger acceptLabel="Aceptar" cancelLabel="Cancelar"
+            [(ngModel)]="copyWidgetData.sensors[0].maxColor">
+          </ngx-colors>
+        </div>
+      </ion-item>
+      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="updateChartDB()">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-content>
+  </ng-template>
+</ion-modal>

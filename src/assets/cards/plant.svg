@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" width="240" height="160">
+  <rect width="240" height="160" fill="#1a2535"/>
+  <g transform="translate(120,80)">
+    <!-- edificio principal -->
+    <rect x="-35" y="-30" width="70" height="55" rx="3" fill="none" stroke="#378ADD" stroke-width="2.5"/>
+    <!-- techo edificio -->
+    <polyline points="-40,-30 0,-50 40,-30" fill="none" stroke="#378ADD" stroke-width="2.5" stroke-linejoin="round"/>
+    <!-- puerta -->
+    <rect x="-10" y="10" width="20" height="15" rx="2" fill="none" stroke="#378ADD" stroke-width="1.5"/>
+    <!-- ventanas -->
+    <rect x="-28" y="-18" width="14" height="12" rx="2" fill="#1e3a5f"/>
+    <rect x="14" y="-18" width="14" height="12" rx="2" fill="#1e3a5f"/>
+    <!-- chimenea izq -->
+    <rect x="-50" y="-45" width="10" height="30" rx="2" fill="none" stroke="#5a7fa0" stroke-width="2"/>
+    <rect x="-53" y="-48" width="16" height="5" rx="1" fill="none" stroke="#5a7fa0" stroke-width="1.5"/>
+    <!-- chimenea der -->
+    <rect x="40" y="-40" width="10" height="25" rx="2" fill="none" stroke="#5a7fa0" stroke-width="2"/>
+    <rect x="37" y="-43" width="16" height="5" rx="1" fill="none" stroke="#5a7fa0" stroke-width="1.5"/>
+    <!-- humo chimeneas -->
+    <path d="-45,-48 Q-43,-55 -45,-62" fill="none" stroke="#5a7fa0" stroke-width="1" opacity="0.4" stroke-dasharray="2 2"/>
+    <path d="M-45,-50 Q-42,-57 -45,-64" fill="none" stroke="#5a7fa0" stroke-width="1" opacity="0.3" stroke-dasharray="2 2"/>
+    <path d="M45,-45 Q47,-52 45,-59" fill="none" stroke="#5a7fa0" stroke-width="1" opacity="0.4" stroke-dasharray="2 2"/>
+    <!-- edificio lateral izq -->
+    <rect x="-72" y="-10" width="25" height="35" rx="2" fill="none" stroke="#5a7fa0" stroke-width="1.8"/>
+    <rect x="-68" y="-4" width="8" height="7" rx="1" fill="#1a2d44"/>
+    <!-- edificio lateral der -->
+    <rect x="47" y="-5" width="25" height="30" rx="2" fill="none" stroke="#5a7fa0" stroke-width="1.8"/>
+    <rect x="51" y="1" width="8" height="7" rx="1" fill="#1a2d44"/>
+    <!-- suelo -->
+    <line x1="-85" y1="25" x2="85" y2="25" stroke="#378ADD" stroke-width="1.5" opacity="0.3"/>
+  </g>
+</svg>

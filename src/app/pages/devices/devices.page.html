@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false">
+        <ion-button size="large" (click)="ToggleMenu()">
+          <ion-icon name="menu-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="../../assets/images/logo.webp" style="height: 45px;" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-breadcrumbs>
+    <ion-breadcrumb [routerLink]="['/park', parkId]" [state]="{ parkName: parkName }">
+      {{ parkName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb [routerLink]="['/park', parkId, 'plant', plantId]" [state]="{ name: plantName }">
+      {{ plantName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb>Dispositivos</ion-breadcrumb>
+  </ion-breadcrumbs>
+
+  <!-- TOGGLE VISTA -->
+  <div class="view-toggle">
+    <ion-button fill="clear" size="small" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+      <ion-icon slot="icon-only" name="list-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="small" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+      <ion-icon slot="icon-only" name="grid-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- ─── VISTA LISTA (accordion) ─────────────────────────── -->
+  <ion-accordion-group *ngIf="viewMode === 'list'">
+    <ion-accordion *ngFor="let device of devices" [value]="'device-' + device.device_id">
+      <ion-item slot="header" lines="none">
+        <ion-icon slot="start" name="hardware-chip-outline"></ion-icon>
+        <ion-label>
+          <h2>{{ device.name }}</h2>
+          <p>{{ device.type }}</p>
+        </ion-label>
+        <ion-badge slot="end" [color]="device.is_active ? 'success' : 'medium'">
+          {{ device.sensors.length }} sensores
+        </ion-badge>
+      </ion-item>
+
+      <div slot="content" class="sensors-content">
+        <div *ngIf="device.sensors.length === 0" class="no-sensors">
+          <ion-label color="medium">Sin sensores configurados</ion-label>
+        </div>
+        <div class="sensors-row" *ngIf="device.sensors.length > 0">
+          <div class="sensor-card" *ngFor="let sensor of device.sensors">
+            <div class="sensor-icon-wrap">
+              <ion-icon [name]="sensor.icon || 'pulse-outline'"></ion-icon>
+            </div>
+            <div class="sensor-body">
+              <span class="sensor-title">{{ sensor.title }}</span>
+              <span class="sensor-value" *ngIf="sensor.last_value !== null">
+                {{ sensor.last_value }}
+                <small>{{ sensor.unit }}</small>
+              </span>
+              <span class="sensor-value no-data" *ngIf="sensor.last_value === null">
+                — <small>sin datos</small>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <!-- ─── VISTA CUADRÍCULA (cards) ─────────────────────────── -->
+  <ion-grid *ngIf="viewMode === 'grid'" class="grid-view">
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let device of devices">
+        <ion-card class="device-card">
+
+          <ion-card-header>
+            <div class="device-card-header">
+              <ion-icon name="hardware-chip-outline" class="device-icon"></ion-icon>
+              <ion-badge [color]="device.is_active ? 'success' : 'medium'">
+                {{ device.is_active ? 'Activo' : 'Inactivo' }}
+              </ion-badge>
+            </div>
+            <ion-card-title>{{ device.name }}</ion-card-title>
+            <ion-card-subtitle>{{ device.type }}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div *ngIf="device.sensors.length === 0" class="no-sensors">
+              <span>Sin sensores configurados</span>
+            </div>
+            <div class="sensors-row" *ngIf="device.sensors.length > 0">
+              <div class="sensor-card" *ngFor="let sensor of device.sensors">
+                <div class="sensor-icon-wrap">
+                  <ion-icon [name]="sensor.icon || 'pulse-outline'" color="primary"></ion-icon>
+                </div>
+                <span class="sensor-title">{{ sensor.title }}</span>
+                <span class="sensor-value" *ngIf="sensor.last_value !== null">
+                  {{ sensor.last_value }}<small>{{ sensor.unit }}</small>
+                </span>
+                <span class="sensor-value no-data" *ngIf="sensor.last_value === null">
+                  —<small>sin datos</small>
+                </span>
+              </div>
+            </div>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

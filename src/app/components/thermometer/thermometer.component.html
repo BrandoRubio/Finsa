@@ -1,0 +1,237 @@
+<ion-card [ngStyle]="widgetData.borderFlag == 'Y' ? {'border': '.2px solid ' + widgetData.color} : {}">
+  <ion-toolbar [ngStyle]="{'--background': widgetData.color}">
+    <ion-buttons slot="end">
+      <ion-button title="Mover" cdkDragHandle class="drag-handle">
+        <ion-icon slot="icon-only" name="move-outline" [ngStyle]="{'color': widgetTextColor}"></ion-icon>
+      </ion-button>
+      <ion-button id="popover-spline-${{data['dashboard_id']}}" title="Opciones">
+        <ion-icon slot="icon-only" name="ellipsis-vertical" [ngStyle]="{'color': widgetTextColor}"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-card-title [ngStyle]="{'color': widgetTextColor}">{{widgetData.name}} </ion-card-title>
+  </ion-toolbar>
+
+  <ion-card-content>
+    <!-- ✅ LAYOUT CENTRADO CON TERMÓMETRO Y DISPLAY -->
+    <div class="modern-thermometer-container centered">
+      <!-- Sección del termómetro -->
+      <div class="thermometer-section">
+        <svg width="100%" height="100%" viewBox="0 0 140 400" class="modern-thermometer">
+          <!-- Fondo exterior del termómetro -->
+          <rect x="52" y="40" width="35" height="350" rx="20" ry="20" fill="#d7dadc" stroke="#d7dadc"
+            stroke-width="2" />
+          <!-- Tubo del termómetro -->
+          <rect x="58" y="50" width="24" height="300" rx="12" ry="12" [attr.fill]="'var(--ion-color-light)'" />
+          <!-- Bulbo del termómetro -->
+          <circle cx="70" cy="370" r="25" fill="#d7dadc" stroke="#d7dadc" stroke-width="2" />
+          <!-- ✅ SISTEMA DE 6 MARCAS SIN DUPLICAR CERO -->
+          <g class="scale-marks">
+            <!-- ✅ MARCA DE CERO (SOLO SI ESTÁ EN RANGO Y NO COINCIDE CON OTRAS) -->
+            <ng-container *ngIf="getZeroPosition() as zeroY">
+              <line x1="50" [attr.y1]="zeroY" x2="25" [attr.y2]="zeroY" stroke="#00BFFF" stroke-width="3" />
+              <text x="22" [attr.y]="zeroY + 5" fill="#00BFFF" font-size="12" text-anchor="end" font-weight="bold">
+                0 {{ widgetData.sensors[0].uom || '' }}
+              </text>
+              <line x1="90" [attr.y1]="zeroY" x2="115" [attr.y2]="zeroY" stroke="#00BFFF" stroke-width="3" />
+              <text x="118" [attr.y]="zeroY + 5" fill="#00BFFF" font-size="12" text-anchor="start" font-weight="bold">
+                0 {{ widgetData.sensors[0].uom || '' }}
+              </text>
+            </ng-container>
+
+            <!-- ✅ MARCA 1: MÁXIMO (100%) -->
+            <ng-container>
+              <line x1="50" y1="50" x2="35" y2="50" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="2" />
+              <text x="32" y="55" fill="#DAA520" font-size="11" text-anchor="end" font-weight="bold">
+                {{ widgetData.sensors[0].max }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+              <line x1="90" y1="50" x2="105" y2="50" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="2" />
+              <text x="108" y="55" fill="#DAA520" font-size="11" text-anchor="start" font-weight="bold">
+                {{ widgetData.sensors[0].max }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+            </ng-container>
+
+            <!-- ✅ MARCA 2: 80% -->
+            <ng-container>
+              <line x1="50" y1="106" x2="35" y2="106" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="1.5" />
+              <text x="32" y="111" fill="#DAA520" font-size="10" text-anchor="end">
+                {{ getPercentageFromValue(80) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+              <line x1="90" y1="106" x2="105" y2="106" [attr.stroke]="'var(--thermometer-primary)'"
+                stroke-width="1.5" />
+              <text x="108" y="111" fill="#DAA520" font-size="10" text-anchor="start">
+                {{ getPercentageFromValue(80) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+            </ng-container>
+
+            <!-- ✅ MARCA 3: 60% -->
+            <ng-container>
+              <line x1="50" y1="162" x2="35" y2="162" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="1.5" />
+              <text x="32" y="167" fill="#DAA520" font-size="10" text-anchor="end">
+                {{ getPercentageFromValue(60) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+              <line x1="90" y1="162" x2="105" y2="162" [attr.stroke]="'var(--thermometer-primary)'"
+                stroke-width="1.5" />
+              <text x="108" y="167" fill="#DAA520" font-size="10" text-anchor="start">
+                {{ getPercentageFromValue(60) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+            </ng-container>
+
+            <!-- ✅ MARCA 4: 40% -->
+            <ng-container>
+              <line x1="50" y1="218" x2="35" y2="218" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="1.5" />
+              <text x="32" y="223" fill="#DAA520" font-size="10" text-anchor="end">
+                {{ getPercentageFromValue(40) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+              <line x1="90" y1="218" x2="105" y2="218" [attr.stroke]="'var(--thermometer-primary)'"
+                stroke-width="1.5" />
+              <text x="108" y="223" fill="#DAA520" font-size="10" text-anchor="start">
+                {{ getPercentageFromValue(40) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+            </ng-container>
+
+            <!-- ✅ MARCA 5: 20% -->
+            <ng-container>
+              <line x1="50" y1="274" x2="35" y2="274" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="1.5" />
+              <text x="32" y="279" fill="#DAA520" font-size="10" text-anchor="end">
+                {{ getPercentageFromValue(20) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+              <line x1="90" y1="274" x2="105" y2="274" [attr.stroke]="'var(--thermometer-primary)'"
+                stroke-width="1.5" />
+              <text x="108" y="279" fill="#DAA520" font-size="10" text-anchor="start">
+                {{ getPercentageFromValue(20) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+            </ng-container>
+
+            <!-- ✅ MARCA 6: MÍNIMO (0%) -->
+            <ng-container *ngIf="!isZeroAtPosition(0)">
+              <line x1="50" y1="330" x2="35" y2="330" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="2" />
+              <text x="32" y="335" fill="#DAA520" font-size="11" text-anchor="end" font-weight="bold">
+                {{ getPercentageFromValue(0) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+              <line x1="90" y1="330" x2="105" y2="330" [attr.stroke]="'var(--thermometer-primary)'" stroke-width="2" />
+              <text x="108" y="335" fill="#DAA520" font-size="11" text-anchor="start" font-weight="bold">
+                {{getPercentageFromValue(0) }} {{ widgetData.sensors[0].uom || '' }}
+              </text>
+            </ng-container>
+
+          </g>
+
+          <!-- Mercurio e indicador -->
+          <ng-container *ngIf="temperature$ | async as currentTemp">
+            <ng-container *ngIf="getIndicatorPosition(currentTemp) as indicatorY">
+
+              <!-- Bulbo lleno -->
+              <circle cx="70" cy="370" r="18" [attr.fill]="getInterpolatedColor()" />
+              <!-- Columna de mercurio -->
+
+              <rect x="58" [attr.y]="indicatorY" width="24" [attr.height]="370 - indicatorY"
+                [attr.fill]="getInterpolatedColor()" rx="12"></rect>
+
+              <!-- Línea indicadora prominente -->
+              <line x1="25" [attr.y1]="indicatorY" x2="115" [attr.y2]="indicatorY" [attr.stroke]="'#f02a03'"
+                stroke-width="5"></line>
+
+              <!-- Círculo indicador -->
+              <circle cx="70" [attr.cy]="indicatorY" r="7" [attr.fill]="'#f02a03'" stroke="white" stroke-width="2">
+              </circle>
+            </ng-container>
+          </ng-container>
+
+          <text x="45" y="380" width="50" height="18" rx="4" ry="4" fill="#222" stroke="#444" stroke-width="1"> </text>
+        </svg>
+      </div>
+      <!-- ✅ DISPLAY CENTRADO CON EL TERMÓMETRO -->
+      <div class="temperature-display-section">
+        <!-- Valor principal grande -->
+        <span style="color: #ccc;">{{widgetData.sensors[0].sensor_name}}</span>
+        <div class="temperature-value" [style.color]="getInterpolatedColor()">
+          {{ temperature$ | async | number : "1.1-1" }} {{ widgetData.sensors[0].uom || '' }}
+        </div>
+        <ion-item lines="none" style="align-self: stretch" class="ion-text-center">
+          <ion-label color="medium">
+            Última actualización: {{ lastDate | date: 'hh:mm a dd/MM/yyyy' }}
+          </ion-label>
+        </ion-item>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ion-popover trigger="popover-spline-${{data['dashboard_id']}}" [dismissOnSelect]="true" showBackdrop="false">
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item [button]="true" [detail]="false" (click)="editChart()">Editar <ion-icon slot="start"
+            name="pencil-outline" color="success"></ion-icon></ion-item>
+        <ion-item [button]="true" [detail]="false" (click)="deleteChart()">Eliminar <ion-icon slot="start"
+            name="trash-outline" color="danger"></ion-icon></ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<ion-modal [isOpen]="isModalOpen" (ionModalWillDismiss)="isModalOpen = false" [focusTrap]="false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Editar widget</ion-title>
+        <ion-buttons slot="end">
+          <ngx-colors ngx-colors-trigger acceptLabel="Aceptar" cancelLabel="Cancelar"
+            [(ngModel)]="copyWidgetData.color"></ngx-colors>
+          <ion-button (click)="isModalOpen = false">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-input type="text" placeholder="" [(ngModel)]="copyWidgetData.name" style="text-align: right;">
+          <div slot="label"><ion-text color="primary">Nombre:</ion-text></div>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" slot="start">Tipo:</ion-label>
+        <ion-label slot="end"><strong>Termómetro</strong></ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-toggle [checked]="copyWidgetData.borderFlag == 'Y'"
+          (ionChange)="copyWidgetData.borderFlag = $event.detail.checked ? 'Y' : 'N'">
+          Borde
+        </ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Máquina:" color="primary" [(ngModel)]="copyWidgetData.sensors[0].machine_id"
+          label-placement="floating" interface="popover">
+          <ion-select-option *ngFor="let mach of machines" [value]="mach.machine_id">
+            {{ mach.machine_name }}
+          </ion-select-option>
+        </ion-select>
+        <ion-select label="Sensor:" color="primary" [(ngModel)]="copyWidgetData.sensors[0].sensor_id"
+          (ionChange)="onSensorChange($event)" label-placement="floating" interface="popover">
+          <ion-select-option *ngFor="let s of getSensorsForMachine(copyWidgetData.sensors[0].machine_id)"
+            [value]="s.sensor_id">
+            {{ s.sensor_name }}
+          </ion-select-option>
+        </ion-select>
+        <ion-input type="text" placeholder="UoM" [(ngModel)]="copyWidgetData.sensors[0].uom"
+          style="text-align: right; max-width: 80px;">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="" [(ngModel)]="copyWidgetData.sensors[0].min" style="text-align: right;">
+          <div slot="label"><ion-text color="primary">Mínimo:</ion-text></div>
+        </ion-input><ngx-colors ngx-colors-trigger acceptLabel="Aceptar" cancelLabel="Cancelar"
+          [(ngModel)]="copyWidgetData.sensors[0].minColor" style="margin-left: 10px;"></ngx-colors>
+        <ion-input type="text" placeholder="" [(ngModel)]="copyWidgetData.sensors[0].max"
+          style="text-align: right; margin-left: 10px;">
+          <div slot="label"><ion-text color="primary">Máximo:</ion-text></div>
+        </ion-input><ngx-colors ngx-colors-trigger acceptLabel="Aceptar" cancelLabel="Cancelar"
+          style="margin-left: 10px;" [(ngModel)]="copyWidgetData.sensors[0].maxColor"></ngx-colors>
+      </ion-item>
+      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="updateChartDB()">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-content>
+  </ng-template>
+</ion-modal>

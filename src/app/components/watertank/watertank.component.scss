@@ -1,0 +1,93 @@
+ion-card {
+  //max-width: 350px;
+  min-height: 450.5px;
+  min-width: 250px;
+  --background: var(--ion-color-back-shade, #fff);
+  border-radius: 12px;
+
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px);
+  }
+}
+
+ion-select::part(label) {
+  color: var(--ion-color-primary);
+}
+
+ion-toolbar {
+  padding-left: 0.5rem;
+  flex-shrink: 0;
+  position: relative;
+}
+
+ion-card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+
+  ion-icon {
+    font-size: 1.3rem;
+  }
+}
+
+
+// CONTENEDOR PRINCIPAL
+.water-tank-container {
+  display: flex;
+  height: 100%;
+  gap: var(--spacing-lg);
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// SVG DEL TANQUE
+.tank-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 380px;
+  min-width: 300px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+
+  .level-markers-left,
+  .level-markers-right {
+    opacity: 0.9;
+
+    text {
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    line {
+      pointer-events: none;
+    }
+  }
+}
+
+.tank-value {
+  text-shadow: 0 0 25px currentColor;
+  transition: all 0.3s ease;
+  text-align: center;
+  line-height: 1;
+}
+
+::ng-deep .opened {
+  background: var(--ion-color-back) !important;
+}
+
+::ng-deep .opened button {
+  color: var(--ion-color-dark) !important;
+}

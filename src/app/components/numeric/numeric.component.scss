@@ -1,0 +1,64 @@
+ion-select::part(label) {
+    color: var(--ion-color-primary);
+}
+
+ion-toolbar {
+    padding-left: 0.5rem;
+    flex-shrink: 0;
+    position: relative;
+}
+
+ion-card {
+    min-width: 250px;
+    min-height: 400px;
+    --background: var(--ion-color-back-shade, #fff);
+    border-radius: 12px;
+
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+        transform: translateY(-2px);
+    }
+}
+
+ion-card-content {
+    min-height: 393px;
+}
+
+ion-card-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+
+    ion-icon {
+        font-size: 1.3rem;
+    }
+}
+
+.vertical-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+::ng-deep .opened {
+    background: var(--ion-color-back) !important;
+}
+
+::ng-deep .opened button {
+    color: var(--ion-color-dark) !important;
+}
+
+.display-section {
+    text-shadow:
+        0 0 5px rgba(255, 255, 255, 0.8),
+        0 0 10px rgba(255, 255, 255, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.4);
+    transition: text-shadow 0.3s ease;
+}

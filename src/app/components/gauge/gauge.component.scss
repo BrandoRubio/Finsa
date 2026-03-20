@@ -1,0 +1,545 @@
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+ion-select::part(label) {
+  color: var(--ion-color-primary);
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+ion-select::part(label) {
+  color: var(--ion-color-primary);
+}
+
+.full-width-label {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ✅ CONTENEDOR PRINCIPAL PERFECTAMENTE CENTRADO
+.humidity-container {
+  display: flex;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-height: 310px;
+  justify-content: center;
+  align-items: center;
+
+  &.compact {
+    gap: var(--spacing-sm);
+  }
+
+  &.config-open {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .gauge-section {
+      flex: 1;
+      min-height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .info-section {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+
+  // ✅ LAYOUT VERTICAL CENTRADO (MÓVIL)
+  flex-direction: column;
+
+  .gauge-section {
+    flex: 1;
+    min-height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .info-section {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+// ✅ SECCIÓN DEL GAUGE PERFECTAMENTE CENTRADA
+.gauge-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.card-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+ion-card {
+  min-width: 250px;
+  //max-width: 350px;
+  min-height: 450.5px;
+  --background: var(--ion-color-back-shade, #fff);
+  border-radius: 12px;
+
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px);
+  }
+}
+
+ion-toolbar {
+  padding-left: 0.5rem;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.custom-toolbar {
+  color: white !important;
+  --color: white !important;
+
+  ion-icon {
+    color: white !important;
+  }
+
+  ion-button {
+    --color: white !important;
+  }
+}
+
+ion-card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+
+  ion-icon {
+    font-size: 1.3rem;
+  }
+}
+
+:host {
+  --humidity-primary: #4A90E2;
+  --humidity-secondary: #1a1a1a;
+  --humidity-accent: #DAA520;
+  --humidity-bg: rgba(255, 255, 255, 0.02);
+  --humidity-border: rgba(74, 144, 226, 0.2);
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+
+
+.humidity-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin: 0;
+
+  ion-icon {
+    font-size: 0.9rem;
+  }
+}
+
+
+// ✅ SECCIÓN DEL GAUGE PERFECTAMENTE CENTRADA
+.gauge-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.gauge-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--humidity-bg);
+  border-radius: 20px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(74, 144, 226, 0.1);
+
+  &.large {
+    padding: 1.5rem;
+    border-radius: 25px;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(74, 144, 226, 0.2);
+  }
+}
+
+// ✅ SVG DEL GAUGE CON POSICIONES MEJORADAS
+.humidity-svg-gauge {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 360px;
+
+  &.large {
+    min-width: 320px;
+  }
+
+  .background-arc {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .progress-path {
+    transition: stroke 0.4s ease;
+    filter: drop-shadow(0 0 10px currentColor);
+    stroke-linecap: round;
+  }
+
+  .gauge-value {
+    text-shadow: 0 0 20px currentColor;
+    transition: fill 0.3s ease;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .scale-marks {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+
+    text {
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    line {
+      transition: stroke 0.3s ease;
+    }
+  }
+
+  &:hover {
+    .background-arc {
+      opacity: 0.8;
+    }
+
+    .scale-marks {
+      opacity: 1;
+
+      line {
+        stroke: #999;
+      }
+    }
+  }
+}
+
+// ✅ SECCIÓN DE INFORMACIÓN CENTRADA
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  color: #fff;
+  min-height: 0;
+  align-items: center;
+  text-align: center;
+}
+
+.humidity-display {
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.humidity-status {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px currentColor;
+}
+
+// ✅ ESTADÍSTICAS CENTRADAS
+.humidity-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.stat-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: #bbb;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-shadow: 0 0 8px currentColor;
+  }
+}
+
+// ✅ INFORMACIÓN DEL SENSOR CENTRADA
+.sensor-info {
+  margin-bottom: var(--spacing-sm);
+  width: 100%;
+  max-width: 300px;
+}
+
+.sensor-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  font-size: 0.8rem;
+  color: #ddd;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--humidity-primary);
+
+  ion-icon {
+    font-size: 1rem;
+    color: var(--humidity-primary);
+  }
+}
+
+// ✅ CONTROL CENTRADO
+.humidity-control {
+  padding: var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.humidity-slider {
+  --bar-background: rgba(255, 255, 255, 0.2);
+  --bar-background-active: var(--humidity-primary);
+  --knob-background: var(--humidity-primary);
+  --knob-size: 18px;
+  --bar-height: 5px;
+
+  margin: var(--spacing-xs) 0;
+
+  ion-label {
+    font-size: 0.75rem;
+    color: #ccc;
+  }
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+
+  ion-button {
+    --padding-start: 6px;
+    --padding-end: 6px;
+
+    ion-icon {
+      font-size: 1rem;
+    }
+  }
+}
+
+// ✅ RESPONSIVE MEJORADO CON CENTRADO PERFECTO
+@media (max-width: 768px) {
+  .humidity-card.large-gauge {
+    min-height: 400px;
+  }
+
+  .gauge-section {
+    min-height: 180px;
+  }
+
+  .humidity-svg-gauge.large {
+    min-width: 250px;
+  }
+
+  .gauge-wrapper.large {
+    padding: 1rem;
+  }
+
+  .config-panel {
+    max-height: 220px;
+  }
+
+  .humidity-container {
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .humidity-card.large-gauge {
+    min-height: 350px;
+  }
+
+  .gauge-section {
+    min-height: 160px;
+  }
+
+  .humidity-svg-gauge.large {
+    min-width: 210px;
+  }
+
+  .humidity-stats {
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 280px;
+
+    .stat-item {
+      flex-direction: row;
+      gap: 4px;
+      align-items: center;
+    }
+  }
+
+  .config-panel {
+    max-height: 180px;
+  }
+}
+
+// ✅ LAYOUT HORIZONTAL PARA DESKTOP - PERFECTAMENTE CENTRADO
+@media (min-width: 769px) {
+  .humidity-container {
+    &:not(.config-open) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xl);
+
+      .gauge-section {
+        flex: 0 0 auto;
+        width: auto;
+        min-width: 350px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .info-section {
+        flex: 0 0 auto;
+        width: auto;
+        min-width: 190px;
+        max-width: 300px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .humidity-card.large-gauge {
+    min-height: 550px;
+  }
+
+  .humidity-container:not(.config-open) {
+    gap: 2.5rem;
+
+    .gauge-section {
+      min-width: 370px;
+    }
+
+    .info-section {
+      min-width: 240px;
+      max-width: 350px;
+      gap: var(--spacing-lg);
+    }
+  }
+
+  .config-panel {
+    max-height: 400px;
+  }
+}
+
+// ✅ ANIMACIONES
+@keyframes pulse-humidity {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes glow-effect {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 15px currentColor);
+  }
+}
+
+.progress-path {
+  animation: glow-effect 4s ease-in-out infinite;
+}
+
+.progress-path:hover {
+  stroke-width: 20;
+}
+
+.gauge-value {
+  animation: pulse-humidity 3s ease-in-out infinite;
+}
+
+// ✅ DARK THEME
+@media (prefers-color-scheme: dark) {
+  :host {
+    --humidity-bg: rgba(255, 255, 255, 0.03);
+    --humidity-border: rgba(74, 144, 226, 0.15);
+  }
+}
+
+::ng-deep .opened {
+  background: var(--ion-color-back) !important;
+}
+
+::ng-deep .opened button {
+  color: var(--ion-color-dark) !important;
+}

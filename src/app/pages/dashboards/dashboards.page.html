@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false">
+        <ion-button size="large" (click)="ToggleMenu()">
+          <ion-icon name="menu-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="../../assets/images/logo.webp" style="height: 45px;" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-breadcrumbs>
+    <ion-breadcrumb [routerLink]="['/park', parkId]" [state]="{ parkName: parkName }">
+      {{ parkName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb [routerLink]="['/park', parkId, 'plant', plantId]" [state]="{ name: plantName }">
+      {{ plantName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb [routerLink]="['/park', parkId, 'plant', plantId, 'dashboards']"
+      [state]="{ parkName: parkName, plantName: plantName  }">Dashboards</ion-breadcrumb>
+  </ion-breadcrumbs>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">dashboards</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- TOGGLE VISTA -->
+  <div class="view-toggle">
+    <ion-button fill="clear" size="small" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+      <ion-icon slot="icon-only" name="list-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="small" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+      <ion-icon slot="icon-only" name="grid-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+
+  <ion-item *ngIf="dashboards.length === 0" lines="none">
+    <ion-label color="medium">Sin dashboards configurados</ion-label>
+  </ion-item>
+  <!-- ─── VISTA LISTA ───────────────────────────────────────── -->
+  <ion-list *ngIf="viewMode === 'list'" class="dashboard-list">
+    <ion-item *ngFor="let dash of dashboards" lines="inset" button
+      [routerLink]="['/plant', plantId, 'dashboards', dash.dashboard_id, 'widgets']"
+      [state]="{ name: plantName, dash_name : dash.name }">
+      <div slot="start" class="dash-icon-wrap">
+        <ion-icon name="pie-chart-outline"></ion-icon>
+      </div>
+
+      <ion-label>
+        <h2>{{ dash.name }}</h2>
+        <p *ngIf="dash.description">{{ dash.description }}</p>
+        <div class="dash-meta">
+          <span><ion-icon name="albums-outline"></ion-icon> {{ dash.widget_count }} widgets</span>
+          <span><ion-icon name="time-outline"></ion-icon> {{ dash.updated_at | date:'dd/MM/yy HH:mm' }}</span>
+        </div>
+      </ion-label>
+
+      <ion-badge slot="end" color="primary">{{ dash.widget_count }}</ion-badge>
+
+    </ion-item>
+  </ion-list>
+
+  <!-- ─── VISTA CUADRÍCULA ──────────────────────────────────── -->
+  <ion-grid *ngIf="viewMode === 'grid'" class="grid-view">
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let dash of dashboards">
+        <ion-card class="dashboard-card" button
+          [routerLink]="['/park', parkId, 'plant', plantId, 'dashboards', dash.dashboard_id, 'widgets']"
+          [state]="{ parkName: parkName, plantName: plantName, dashName : dash.name }">
+
+          <ion-card-header>
+            <div class="device-card-header">
+              <div class="dash-icon-wrap">
+                <ion-icon name="pie-chart-outline"></ion-icon>
+              </div>
+              <ion-badge color="primary">{{ dash.widget_count }} widgets</ion-badge>
+            </div>
+            <ion-card-title>{{ dash.name }}</ion-card-title>
+            <ion-card-subtitle *ngIf="dash.description">{{ dash.description }}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="dash-meta">
+              <div class="meta-row">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <span>Creado: {{ dash.created_at | date:'dd/MM/yy HH:mm' }}</span>
+              </div>
+              <div class="meta-row">
+                <ion-icon name="pencil-outline"></ion-icon>
+                <span>Editado: {{ dash.updated_at ? (dash.updated_at | date:'dd/MM/yy HH:mm') : '—' }}</span>
+              </div>
+            </div>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
