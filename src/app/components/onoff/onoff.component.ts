@@ -61,7 +61,7 @@ export class OnoffComponent implements OnInit {
     })
   }
   startSubscriptions() {
-    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       this.lastValue = response.data.value
       this.lastDate = response.data.time
       this.isOn = Number(this.lastValue) < Number(this.widgetData.sensors[0].max) ? false : true//false
@@ -69,7 +69,7 @@ export class OnoffComponent implements OnInit {
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });
+    });*/
   }
   deleteChart() {
     this.remove.emit(this.widgetData.id);

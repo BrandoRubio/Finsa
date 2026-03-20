@@ -190,14 +190,14 @@ export class WaterTankComponent implements OnInit {
     })
   }
   startSubscriptions() {
-    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       const lastValue = response.data.value
       this.lastDate = response.data.time
       this.updateWaterLevel(lastValue);
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });
+    });*/
   }
   private initializeWaterLevel() {
     const initialValue = Math.max(0, Math.min(this.widgetData.sensors[0].max, 0));

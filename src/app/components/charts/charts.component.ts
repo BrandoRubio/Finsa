@@ -286,7 +286,7 @@ export class ChartsComponent implements OnInit {
     }
     sensores.forEach((sensor: any) => {
       const sensor_id = sensor.sensor_id;
-      this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
+      /*this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
         if (this.isPaused) return;
         const timestamp = new Date(data.data.time).getTime();
         const { start } = this.getDateRangeFromOption(this.widgetData.dateRange);
@@ -304,7 +304,7 @@ export class ChartsComponent implements OnInit {
         this.conexionesLocales[sensor_id] = ws;
       }).catch(err => {
         console.error('Error suscribiendo a sensor', sensor_id, err);
-      });
+      });*/
     });
   }
   stopSubscriptions() {

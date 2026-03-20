@@ -129,7 +129,7 @@ export class CounterComponent implements OnInit {
     }
   }
   startSubscriptions() {
-    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       //console.log(response);      
       if (this.isPaused) return;
       this.updateCounterDisplay(Math.round(response.data.value));
@@ -137,7 +137,7 @@ export class CounterComponent implements OnInit {
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });
+    });*/
   }
   UpdateNow() {
     this.nowDate = this.formatLocalISO(new Date())

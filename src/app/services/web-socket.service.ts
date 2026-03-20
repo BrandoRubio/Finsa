@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class WebSocketService {
   // webSocketServer = "ws://localhost:3000";
-  webSocketServer = "wss://iot-services-rd-ww45.onrender.com";
+  webSocketServer = "wss://demopinsaapis.onrender.com";
 
   constructor() {
     const remoteServer = /*localStorage.getItem('remoteServer') == 'false' ? false : true*/false
-    this.webSocketServer = remoteServer ? "wss://iot-services-rd-ww45.onrender.com" : "ws://localhost:3000";
+    this.webSocketServer = remoteServer ? "wss://demopinsaapis.onrender.com" : "ws://localhost:3000";
   }
 
   SuscribeById(id: any, typews: string, onMessage: (data: any) => void): Promise<{ ws: WebSocket, unsubscribe: () => void }> {
@@ -51,6 +51,6 @@ export class WebSocketService {
   }
 
   setSocketServer(remoteServer: boolean) {
-    this.webSocketServer = remoteServer ? "wss://iot-services-rd-ww45.onrender.com" : "ws://localhost:3000";
+    this.webSocketServer = remoteServer ? "wss://demopinsaapis.onrender.com" : "ws://localhost:3000";
   }
 }

@@ -107,14 +107,14 @@ export class ThermometerComponent implements OnInit {
     })
   }
   startSubscriptions() {
-    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       const lastValue = response.data.value
       this.lastDate = response.data.time
       this.updateTemperature(lastValue);
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });
+    });*/
   }
 
   public updateTemperature(temperature: number) {

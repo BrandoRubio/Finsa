@@ -67,7 +67,7 @@ export class GaugeComponent implements OnInit {
     })
   }
   startSubscriptions() {
-    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       const lastValue = response.data.value
       this.lastDate = response.data.time
       this.humiditySubject.next(lastValue);
@@ -75,7 +75,7 @@ export class GaugeComponent implements OnInit {
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });
+    });*/
   }
   deleteChart() {
     this.remove.emit(this.widgetData.id);

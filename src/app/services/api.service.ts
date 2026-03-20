@@ -11,12 +11,13 @@ export class ApiService {
   private credentials: string = '';
   private urlFusion: string = '';
   private urlRender: string = 'https://demopinsaapis.onrender.com/api';
+  //private urlRender: string = 'http://localhost:3000/api';
 
   constructor(public alerts: AlertsService, private navCtrl: NavController) {
     //const remoteServer = localStorage.getItem('remoteServer') == 'false' ? false : true
     //console.log(remoteServer);
 
-    this.urlRender = /*remoteServer ? 'https://iot-services-rd-ww45.onrender.com/api' :*/ 'https://demopinsaapis.onrender.com/api';
+    this.urlRender = /*¿http://localhost:3000/api' ? 'https://demopinsaapis.onrender.com/api' :*/ 'https://demopinsaapis.onrender.com/api';
   }
 
   async GetRequestRender(endPoint: string, show: boolean = true) {

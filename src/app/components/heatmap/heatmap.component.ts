@@ -207,7 +207,7 @@ export class HeatmapComponent implements OnInit {
   }
 
   startSubscriptions() {
-    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       this.updateHeatmapWithNewData(response.data.value, response.data.time)
       //this.lastDate = response.data.time
       //this.updateHeatmapSafe({ value: lastValue, time: response.data.time });
@@ -215,7 +215,7 @@ export class HeatmapComponent implements OnInit {
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });
+    });*/
   }
   updateHeatmapWithNewData(newValue: string, newTime: string) {
     const date = new Date(newTime);

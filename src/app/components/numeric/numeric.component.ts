@@ -81,13 +81,13 @@ export class NumericComponent implements OnInit {
     const sensores = this.widgetData.sensors;
     sensores.forEach((sensor: any) => {
       const sensor_id = sensor.sensor_id;
-      this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
+      /*this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
         sensor.date_time = data.data.time
         sensor.value = data.data.value
       }).then((ws) => {
       }).catch(err => {
         console.error('Error suscribiendo a sensor', sensor_id, err);
-      });
+      });*/
     });
   }
   deleteChart() {
