@@ -107,11 +107,11 @@
               <ion-input [(ngModel)]="form.password" type="password" placeholder="••••••••"></ion-input>
             </ion-item>
 
-            <ion-item>
+            <!--ion-item>
               <ion-label position="stacked">O buscar usuario existente</ion-label>
               <ion-input [(ngModel)]="userSearch" (ionInput)="SearchExistingUsers()" placeholder="Nombre o correo...">
               </ion-input>
-            </ion-item>
+            </ion-item-->
 
             <ion-item *ngFor="let u of existingUsers" button (click)="SelectExistingUser(u)" lines="inset">
               <div slot="start" class="user-avatar user-avatar-sm">
