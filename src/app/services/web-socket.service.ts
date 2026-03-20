@@ -4,12 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class WebSocketService {
-  // webSocketServer = "ws://localhost:3000";
+  //webSocketServer = "ws://localhost:3000";
   webSocketServer = "wss://demopinsaapis.onrender.com";
 
   constructor() {
     const remoteServer = /*localStorage.getItem('remoteServer') == 'false' ? false : true*/false
-    this.webSocketServer = remoteServer ? "wss://demopinsaapis.onrender.com" : "ws://localhost:3000";
+    this.webSocketServer = 'wss://demopinsaapis.onrender.com'
+    //this.webSocketServer = "ws://localhost:3000"
   }
 
   SuscribeById(id: any, typews: string, onMessage: (data: any) => void): Promise<{ ws: WebSocket, unsubscribe: () => void }> {

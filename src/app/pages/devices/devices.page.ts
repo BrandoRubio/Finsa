@@ -44,9 +44,7 @@ export class DevicesPage implements OnInit {
 
   GetDevices() {
     this.api.GetRequestRender('plant/' + this.plantId + '/devices-sensors').then((response: any) => {
-
       this.devices = response.data
-      console.log(this.devices);
     })
   }
   ToggleMenu() {

@@ -59,8 +59,6 @@ export class ThermometerComponent implements OnInit {
     //console.log(this.copyWidgetData.widgetType);
     this.api.GetRequestRender('machinesAndSensorsByOrganizations?organizations=' + this.widgetData.plant_id).then((response: any) => {
       this.machines = response.data
-      console.log(response);
-      
       this.isModalOpen = true;
     })
   }

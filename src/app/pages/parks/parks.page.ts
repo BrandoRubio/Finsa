@@ -35,8 +35,6 @@ export class ParksPage implements OnInit {
   GetDevices() {
     this.api.GetRequestRender('parks-plants').then((response: any) => {
       this.parksArray = response.data;
-      console.log(this.parksArray);
-      
     })
   }
   ToggleMenu() {

@@ -68,6 +68,8 @@ export class GaugeComponent implements OnInit {
   }
   startSubscriptions() {
     this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+      console.log(response);
+      
       const lastValue = response.data.value
       this.lastDate = response.data.time
       this.humiditySubject.next(lastValue);

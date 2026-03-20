@@ -304,8 +304,6 @@ export class CounterComponent implements OnInit {
   onSensorChange(event: any) {
     const selectedValue = event.detail.value;
     const sensor = this.getSensorsForMachine(this.widgetData.sensors[0].machine_id).find((s: any) => s.sensor_id == selectedValue)
-    console.log(this.copyWidgetData.sensors);
-    
     this.copyWidgetData.sensors[0].sensor_name = sensor.sensor_name
   }
 }

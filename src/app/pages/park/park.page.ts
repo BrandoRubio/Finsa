@@ -45,7 +45,6 @@ export class ParkPage implements OnInit {
   ngOnInit() {
     this.parkId = +this.route.snapshot.params['park_id'];
     this.parkName = this.router.getCurrentNavigation()?.extras?.state?.['parkName'] || '';
-    console.log(this.parkId, this.parkName);
     this.LoadPark();
   }
 
