@@ -22,7 +22,7 @@
 
   <div class="park-toolbar">
     <div class="park-actions">
-      <ion-button fill="clear" size="small" shape="round" [routerLink]="['/park', parkId, 'parks-users']"
+      <ion-button fill="clear" size="small" shape="round" [routerLink]="['/park', parkId, 'parks-users']" *ngIf="canEdit()"
         [state]="{ park_name: parkName }"
         style="--border-radius: 50%; --padding-start: 6px; --padding-end: 6px; position: relative;">
         <ion-icon slot="icon-only" name="people-outline"></ion-icon>
@@ -31,7 +31,7 @@
         </ion-badge-->
       </ion-button>
 
-      <ion-button fill="clear" size="small" shape="round" (click)="OpenSettings()"
+      <ion-button fill="clear" size="small" shape="round" (click)="OpenSettings()" *ngIf="canEdit()"
         style="--border-radius: 50%; --padding-start: 6px; --padding-end: 6px;">
         <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
       </ion-button>

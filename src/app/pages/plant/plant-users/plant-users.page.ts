@@ -14,7 +14,8 @@ import { RouterModule } from '@angular/router';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
 import {
   menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline,
-  pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, personAddOutline, cubeOutline, personRemoveOutline, closeOutline, businessOutline } from 'ionicons/icons';
+  pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, personAddOutline, cubeOutline, personRemoveOutline, closeOutline, businessOutline
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-plant-users',
@@ -52,7 +53,7 @@ export class PlantUsersPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,) {
-    addIcons({menuOutline,personAddOutline,businessOutline,pencilOutline,personRemoveOutline,closeOutline,cubeOutline,listOutline,gridOutline,pieChartOutline,albumsOutline,timeOutline,calendarOutline,hardwareChipOutline,thermometerOutline,flashOutline,pulseOutline,waterOutline});
+    addIcons({ menuOutline, personAddOutline, businessOutline, pencilOutline, personRemoveOutline, closeOutline, cubeOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline });
   }
 
   ngOnInit() {
@@ -92,7 +93,7 @@ export class PlantUsersPage implements OnInit {
     this.api.GetRequestRender('plants/' + this.plantId + '/users').then((response: any) => {
       this.users = response.data;
       this.filteredUsers = response.data;
-      console.log(this.filteredUsers);
+      console.log('plants/' + this.plantId + '/users');
     });
   }
 

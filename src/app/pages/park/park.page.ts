@@ -36,6 +36,12 @@ export class ParkPage implements OnInit {
     addIcons({ menuOutline, cubeOutline, settingsOutline, listOutline, gridOutline, chevronForwardOutline, locationOutline, peopleOutline, businessOutline, timeOutline, mapOutline });
   }
 
+  currentUser = JSON.parse(localStorage.getItem('userData') || '{}');
+  // ─── ROLES ──────────────────────────────────────────────────
+  isMaster() { return this.currentUser?.is_master; }
+  isAdmin() { return this.currentUser?.role === 'admin'; }
+  isViewer() { return this.currentUser?.role === 'viewer'; }
+  canEdit() { return this.isMaster() || this.isAdmin(); }
   ngOnInit() {
     this.parkId = +this.route.snapshot.params['park_id'];
     this.parkName = this.router.getCurrentNavigation()?.extras?.state?.['parkName'] || '';

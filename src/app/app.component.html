@@ -72,7 +72,7 @@
                   <ion-item slot="header" lines="none" button class="menu-header-item">
                     <ion-icon slot="start" name="business-outline" class="menu-icon" color="secondary"></ion-icon>
                     <ion-label class="menu-label">{{ park.name }}</ion-label>
-                    <ion-buttons slot="end">
+                    <ion-buttons slot="end" *ngIf="canEdit()">
                       <ion-button fill="clear" shape="round" size="small" [routerLink]="['/park', park.park_id]"
                         (click)="$event.stopPropagation()" [state]="{ parkName: park.name }"
                         style="--border-radius: 50%; --padding-start: 6px; --padding-end: 6px;">
