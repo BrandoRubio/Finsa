@@ -10,6 +10,7 @@ import { menuOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { ApiService } from '../../services/api.service';
 import { RouterModule } from '@angular/router';
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 
 @Component({
   selector: 'app-plants',
@@ -17,7 +18,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./plants.page.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, LogoComponent,
     IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, RouterModule
   ]
 })

@@ -8,7 +8,7 @@
       </ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <img src="../../assets/images/logo.webp" style="height: 45px;" />
+      <app-logo></app-logo>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -45,7 +45,7 @@
   </div>
 
   <!-- ─── VISTA LISTA (accordion por parque) ───────────────── -->
-  <ion-accordion-group *ngIf="viewMode === 'list'">
+  <ion-accordion-group *ngIf="viewMode === 'list'" [multiple]="true">
     <ion-accordion *ngFor="let park of parksArray" [value]="'park-' + park.park_id">
 
       <ion-item slot="header" lines="none">
@@ -64,8 +64,8 @@
           <ion-label color="medium">Sin plantas configuradas</ion-label>
         </div>
         <div class="sensors-row" *ngIf="park.plants.length > 0">
-          <div class="sensor-card" *ngFor="let plant of park.plants" [routerLink]="['/plant', plant.plant_id]"
-            [state]="{ plantName: plant.name }" style="cursor: pointer;">
+          <div class="sensor-card" *ngFor="let plant of park.plants" [routerLink]="['/park', park.park_id]"
+            [state]="{ parkName: park.name }" style="cursor: pointer;">
             <div class="sensor-icon-wrap">
               <ion-icon name="cube-outline"></ion-icon>
             </div>

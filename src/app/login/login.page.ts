@@ -26,6 +26,7 @@ import { ApiService } from '../services/api.service';
 import { NavController } from '@ionic/angular';
 import { AlertsService } from '../services/alerts.service';
 import { AppComponent } from '../app.component';
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 //import { WebSocketService } from '../services/web-socket.service';
 
 @Component({
@@ -33,7 +34,7 @@ import { AppComponent } from '../app.component';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, CommonModule, FormsModule, IonText, IonButton, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCheckbox,
+  imports: [IonContent, IonHeader, IonTitle, CommonModule, FormsModule, IonText, IonButton, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCheckbox, LogoComponent,
     IonInput, IonItem, IonIcon, IonToolbar, IonInputPasswordToggle, IonToggle, IonAvatar]
 })
 export class LoginPage {

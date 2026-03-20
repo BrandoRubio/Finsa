@@ -8,13 +8,14 @@ import { addIcons } from 'ionicons';
 import { RouterModule } from '@angular/router';
 import { menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline } from 'ionicons/icons';
 
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 @Component({
   selector: 'app-events',
   templateUrl: './events.page.html',
   styleUrls: ['./events.page.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonMenuButton, IonBreadcrumb, IonBreadcrumbs, IonAccordion, IonAccordionGroup, IonItem, CommonModule, FormsModule, RouterModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonMenuButton, IonBreadcrumb, IonBreadcrumbs, IonAccordion, IonAccordionGroup, IonItem, CommonModule, FormsModule, LogoComponent, RouterModule]
 })
 export class EventsPage implements OnInit {
 

@@ -8,7 +8,7 @@
       </ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <img src="../../assets/images/logo.webp" style="height: 45px;" />
+      <app-logo></app-logo>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -45,10 +45,10 @@
     <ion-label color="medium">Sin dashboards configurados</ion-label>
   </ion-item>
   <!-- ─── VISTA LISTA ───────────────────────────────────────── -->
+  <!-- ─── VISTA LISTA ───────────────────────────────────────── -->
   <ion-list *ngIf="viewMode === 'list'" class="dashboard-list">
-    <ion-item *ngFor="let dash of dashboards" lines="inset" button
-      [routerLink]="['/plant', plantId, 'dashboards', dash.dashboard_id, 'widgets']"
-      [state]="{ name: plantName, dash_name : dash.name }">
+    <ion-item *ngFor="let dash of dashboards" lines="inset" button (click)="GoToDashboard(dash)">
+
       <div slot="start" class="dash-icon-wrap">
         <ion-icon name="pie-chart-outline"></ion-icon>
       </div>
@@ -64,6 +64,12 @@
 
       <ion-badge slot="end" color="primary">{{ dash.widget_count }}</ion-badge>
 
+      <ion-buttons slot="end" (click)="$event.stopPropagation()">
+        <ion-button fill=" clear" color="danger" (click)="DeleteDashboard($event, dash)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
     </ion-item>
   </ion-list>
 
@@ -71,16 +77,20 @@
   <ion-grid *ngIf="viewMode === 'grid'" class="grid-view">
     <ion-row>
       <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let dash of dashboards">
-        <ion-card class="dashboard-card" button
-          [routerLink]="['/park', parkId, 'plant', plantId, 'dashboards', dash.dashboard_id, 'widgets']"
-          [state]="{ parkName: parkName, plantName: plantName, dashName : dash.name }">
+        <ion-card class="dashboard-card" button (click)="GoToDashboard(dash)">
 
           <ion-card-header>
             <div class="device-card-header">
               <div class="dash-icon-wrap">
                 <ion-icon name="pie-chart-outline"></ion-icon>
               </div>
-              <ion-badge color="primary">{{ dash.widget_count }} widgets</ion-badge>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <ion-badge color="primary">{{ dash.widget_count }} widgets</ion-badge>
+                <ion-button fill="clear" color="danger" size="small" (click)="DeleteDashboard($event, dash)"
+                  style="--border-radius: 50%; --padding-start: 4px; --padding-end: 4px;">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </div>
             </div>
             <ion-card-title>{{ dash.name }}</ion-card-title>
             <ion-card-subtitle *ngIf="dash.description">{{ dash.description }}</ion-card-subtitle>

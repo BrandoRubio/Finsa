@@ -20,6 +20,7 @@ import { WaterTankComponent } from 'src/app/components/watertank/watertank.compo
 import { CounterComponent } from 'src/app/components/counter/counter.component';
 import { ThermometerComponent } from 'src/app/components/thermometer/thermometer.component';
 import { OnoffComponent } from 'src/app/components/onoff/onoff.component';
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 import { addIcons } from 'ionicons';
 import {
   hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline,
@@ -52,7 +53,7 @@ export type ChartOptions = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, GaugeComponent, ChartsComponent, HeatmapComponent,
-    CounterComponent, NumericComponent, ThermometerComponent, OnoffComponent, WaterTankComponent, NgxColorsModule, IonFab, IonFabButton,
+    CounterComponent, NumericComponent, ThermometerComponent, OnoffComponent, WaterTankComponent, NgxColorsModule, IonFab, IonFabButton, LogoComponent,
     IonItem, IonSelectOption, IonText, IonModal, IonInput, IonSelect, IonLoading, DragDropModule, ResizableModule, IonRippleEffect, IonToggle,
     IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule,]
 })
@@ -133,11 +134,11 @@ export class WidgetsPage implements OnInit {
     this.parkName = this.router.getCurrentNavigation()?.extras?.state?.['parkName'] || '';
     this.dashName = this.router.getCurrentNavigation()?.extras?.state?.['dashName'] || '';
     console.log(this.dashId);
-    
+
     this.GetWidgets()
   }
   GetWidgets() {
-    this.api.GetRequestRender('dashboards/' + this.dashId + '/widgets').then((response: any) => {      
+    this.api.GetRequestRender('dashboards/' + this.dashId + '/widgets').then((response: any) => {
       const raw = response.data[0];
       /*
             // Detalle del dashboard
@@ -331,7 +332,7 @@ export class WidgetsPage implements OnInit {
   }
   async removeWidget(id: number) {//Eliminar widget
     if (await this.alerts.ShowAlert("¿Deseas eliminar este dashboard?", "Alerta", "Atrás", "Eliminar")) {
-      this.api.DeleteRequestRender('dashboards/' + id).then((response: any) => {
+      this.api.DeleteRequestRender('widgets/' + id).then((response: any) => {
         if (!response.errorsExistFlag) {
           this.widgets = this.widgets.filter((w: any) => w.jsonParams.dashboard_id !== id);
           this.changeDetector.detectChanges()

@@ -8,7 +8,7 @@
       </ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <img src="../../assets/images/logo.webp" style="height: 45px;" />
+      <app-logo></app-logo>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,10 +16,12 @@
 <ion-content class="ion-padding">
 
   <ion-breadcrumbs>
-    <ion-breadcrumb [routerLink]="['/plant', plantId]" [state]="{ name: plantName }">
-      {{ plantName || 'Planta' }}
+    <ion-breadcrumb [routerLink]="['/park', parkId]" [state]="{ parkName: parkName }">
+      {{ parkName }}
+    </ion-breadcrumb>
+    <ion-breadcrumb [routerLink]="['/park', parkId, 'plant', plantId]" [state]="{ name: plantName }">
+      {{ plantName }}
     </ion-breadcrumb>
     <ion-breadcrumb>Eventos</ion-breadcrumb>
   </ion-breadcrumbs>
-  
 </ion-content>

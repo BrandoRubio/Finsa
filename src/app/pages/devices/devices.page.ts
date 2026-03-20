@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline } from 'ionicons/icons';
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./devices.page.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonMenuButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule, RouterModule,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonMenuButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule, RouterModule, LogoComponent,
     IonAccordion, IonAccordionGroup, IonItem, IonButton]
 })
 export class DevicesPage implements OnInit {

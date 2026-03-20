@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, cubeOutline, settingsOutline, chevronForwardOutline, locationOutline, peopleOutline, businessOutline, mapOutline } from 'ionicons/icons';
 import { ApiService } from 'src/app/services/api.service';
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 
 @Component({
   selector: 'app-park',
@@ -18,7 +19,7 @@ import { ApiService } from 'src/app/services/api.service';
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonMenuButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule, RouterModule, IonSegment, IonSegmentButton, IonBadge,
-    IonAccordion, IonAccordionGroup, IonItem, IonButton, IonList, IonLabel
+    IonAccordion, IonAccordionGroup, IonItem, IonButton, IonList, IonLabel, LogoComponent
   ]
 })
 export class ParkPage implements OnInit {

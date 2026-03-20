@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { addIcons } from 'ionicons';
 import { RouterModule } from '@angular/router';
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 import {
   menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline,
   pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, personAddOutline, cubeOutline, personRemoveOutline, closeOutline, businessOutline } from 'ionicons/icons';
@@ -22,7 +23,7 @@ import {
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, IonSearchbar, IonModal, IonItem, IonInput, IonSelect, IonSelectOption,
+    IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, IonSearchbar, IonModal, IonItem, IonInput, IonSelect, IonSelectOption, LogoComponent,
     IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule, IonToggle, IonBadge
   ]
 })

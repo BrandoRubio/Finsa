@@ -13,7 +13,10 @@ import { addIcons } from 'ionicons';
 import { RouterModule } from '@angular/router';
 import {
   menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline,
-  pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, personAddOutline, cubeOutline, personRemoveOutline, closeOutline, businessOutline, trashOutline, shieldOutline } from 'ionicons/icons';
+  pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, personAddOutline, cubeOutline, personRemoveOutline, closeOutline, businessOutline, trashOutline, shieldOutline
+} from 'ionicons/icons';
+import { AlertsService } from 'src/app/services/alerts.service';
+import { LogoComponent } from 'src/app/components/logo/logo.component';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +25,7 @@ import {
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, IonSearchbar, IonModal, IonItem, IonInput, IonSelect, IonSelectOption,
+    IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, IonSearchbar, IonModal, IonItem, IonInput, IonSelect, IonSelectOption, LogoComponent,
     IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule, IonToggle, IonBadge
   ]
 })
@@ -40,9 +43,14 @@ export class UsersPage implements OnInit {
     name: '', email: '', password: '', role: 'admin'
   };
 
-  constructor(private api: ApiService) {
-    addIcons({menuOutline,personAddOutline,shieldOutline,pencilOutline,trashOutline,closeOutline,businessOutline,personRemoveOutline,cubeOutline,listOutline,gridOutline,pieChartOutline,albumsOutline,timeOutline,calendarOutline,hardwareChipOutline,thermometerOutline,flashOutline,pulseOutline,waterOutline});
-
+  constructor(
+    private api: ApiService,
+    private alerts: AlertsService
+  ) {
+    addIcons({
+      menuOutline, personAddOutline, shieldOutline, pencilOutline, trashOutline, closeOutline, businessOutline, personRemoveOutline, cubeOutline, listOutline, gridOutline, pieChartOutline,
+      albumsOutline, timeOutline, calendarOutline, hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline
+    });
   }
 
   ngOnInit() { this.GetUsers(); }
@@ -100,12 +108,12 @@ export class UsersPage implements OnInit {
     }
   }
 
-  ConfirmDelete(user: any) {
-    const confirmed = confirm(`¿Eliminar a ${user.name}?`);
-    if (!confirmed) return;
-    this.api.DeleteRequestRender('users/' + user.user_id).then((response: any) => {
-      if (!response.error) this.GetUsers();
-    });
+  async ConfirmDelete(user: any) {
+    if (await this.alerts.ShowAlert("¿Deseas eliminar este dashboard?", "Alerta", "Atrás", "Eliminar")) {
+      this.api.DeleteRequestRender('users/' + user.user_id).then((response: any) => {
+        if (!response.error) this.GetUsers();
+      });
+    }
   }
 
   OpenModal(user: any) {

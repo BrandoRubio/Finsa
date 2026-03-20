@@ -35,3 +35,21 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 @import "@ionic/angular/css/palettes/dark.class.css";
 /* @import '@ionic/angular/css/palettes/dark.system.css'; */
+
+:root {
+    --logo-text-color: #1a2340;
+}
+
+body.dark {
+    --logo-text-color: #ffffff;
+}
+
+ion-title.md {
+    position: relative;
+    text-align: center;
+}
+
+app-logo svg {
+    height: 60px;
+    width: auto;
+}
