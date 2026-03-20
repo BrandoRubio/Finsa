@@ -144,9 +144,7 @@ export class HeatmapComponent implements OnInit {
     try {
       const response: any = await this.api.GetRequestRender(
         `sensorsDataHM/?sensors=${sensorIDsString}&from=${startStr}&to=${endStr}`, false
-      );
-      console.log(response);
-      
+      );      
       const series = this.generateHeatmapMatrix(response.data[0].data);
       this.chartOptions.series = series
       this.startSubscriptions()
@@ -207,7 +205,7 @@ export class HeatmapComponent implements OnInit {
   }
 
   startSubscriptions() {
-    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       this.updateHeatmapWithNewData(response.data.value, response.data.time)
       //this.lastDate = response.data.time
       //this.updateHeatmapSafe({ value: lastValue, time: response.data.time });
@@ -215,7 +213,7 @@ export class HeatmapComponent implements OnInit {
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });*/
+    });
   }
   updateHeatmapWithNewData(newValue: string, newTime: string) {
     const date = new Date(newTime);
@@ -536,9 +534,8 @@ export class HeatmapComponent implements OnInit {
   editChart() {
     this.copyWidgetData = JSON.parse(JSON.stringify(this.widgetData))
     this.api.GetRequestRender('machinesAndSensorsByOrganizations?organizations=' + this.widgetData.plant_id).then((response: any) => {
-      console.log(response);
-      
-      this.machines = response.items
+      console.log(response);      
+      this.machines = response.data
       this.isModalOpen = true;
       //this.copyWidgetData.machine = response.data[0].MachineId + ""
       //console.log(response.data[0].MachineId);

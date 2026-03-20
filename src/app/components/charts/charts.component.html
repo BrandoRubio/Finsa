@@ -101,7 +101,7 @@
       </ion-item>
       <ion-item-sliding *ngFor="let sensor of copyWidgetData.sensors; let i = index">
         <ion-item>
-          <ion-select label="Máquina:" color="primary" [(ngModel)]="sensor.machine_id" label-placement="floating"
+          <ion-select label="Dispositivo:" color="primary" [(ngModel)]="sensor.machine_id" label-placement="floating"
             interface="popover">
             <ion-select-option *ngFor="let mach of machines" [value]="mach.machine_id">
               {{ mach.machine_name }}

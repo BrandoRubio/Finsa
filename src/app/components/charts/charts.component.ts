@@ -12,7 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 //';
 import { addIcons } from 'ionicons';
-import { ellipsisVertical, moveOutline, pencilOutline, trashOutline } from 'ionicons/icons';
+import { ellipsisVertical, moveOutline, pencilOutline, trashOutline, checkmark } from 'ionicons/icons';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CdkDragHandle } from '@angular/cdk/drag-drop';
 
@@ -61,7 +61,7 @@ export class ChartsComponent implements OnInit {
     private alerts: AlertsService,
     private ws: WebSocketService,
     private api: ApiService) {
-    addIcons({ ellipsisVertical, pencilOutline, trashOutline, moveOutline })
+    addIcons({moveOutline,ellipsisVertical,pencilOutline,trashOutline,checkmark});
     this.chartOptions = {
       series: [],
       chart: {
@@ -286,7 +286,7 @@ export class ChartsComponent implements OnInit {
     }
     sensores.forEach((sensor: any) => {
       const sensor_id = sensor.sensor_id;
-      /*this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
+      this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
         if (this.isPaused) return;
         const timestamp = new Date(data.data.time).getTime();
         const { start } = this.getDateRangeFromOption(this.widgetData.dateRange);
@@ -304,7 +304,7 @@ export class ChartsComponent implements OnInit {
         this.conexionesLocales[sensor_id] = ws;
       }).catch(err => {
         console.error('Error suscribiendo a sensor', sensor_id, err);
-      });*/
+      });
     });
   }
   stopSubscriptions() {
@@ -385,7 +385,7 @@ export class ChartsComponent implements OnInit {
   editChart() {
     this.copyWidgetData = JSON.parse(JSON.stringify(this.widgetData))
     this.api.GetRequestRender('machinesAndSensorsByOrganizations?organizations=' + this.widgetData.plant_id).then((response: any) => {
-      this.machines = response.items
+      this.machines = response.data
       this.isModalOpen = true;
       //this.newWidgetData.machine = response.data[0].MachineId + ""
       //console.log(response.data[0].MachineId);

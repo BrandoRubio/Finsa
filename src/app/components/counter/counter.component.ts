@@ -118,7 +118,6 @@ export class CounterComponent implements OnInit {
       const response: any = await this.api.GetRequestRender(
         `sensorsData/?sensors=${sensorIDsString}&from=${startStr}&to=${endStr}`, false
       );
-      
       const suma = response.data[0].data.reduce((sum: any, item: any) => sum + Number(item.value), 0);
       this.lastDate = response.data[0].data[0].time
       this.countStr = 0
@@ -129,7 +128,7 @@ export class CounterComponent implements OnInit {
     }
   }
   startSubscriptions() {
-    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       //console.log(response);      
       if (this.isPaused) return;
       this.updateCounterDisplay(Math.round(response.data.value));
@@ -137,7 +136,7 @@ export class CounterComponent implements OnInit {
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });*/
+    });
   }
   UpdateNow() {
     this.nowDate = this.formatLocalISO(new Date())
@@ -259,7 +258,7 @@ export class CounterComponent implements OnInit {
     this.copyWidgetData = JSON.parse(JSON.stringify(this.widgetData))
     this.api.GetRequestRender('machinesAndSensorsByOrganizations?organizations=' + this.widgetData.plant_id).then((response: any) => {
       //console.log(response);
-      this.machines = response.items
+      this.machines = response.data
       this.isModalOpen = true;
       this.changeDetector.detectChanges()
     })
@@ -305,6 +304,8 @@ export class CounterComponent implements OnInit {
   onSensorChange(event: any) {
     const selectedValue = event.detail.value;
     const sensor = this.getSensorsForMachine(this.widgetData.sensors[0].machine_id).find((s: any) => s.sensor_id == selectedValue)
+    console.log(this.copyWidgetData.sensors);
+    
     this.copyWidgetData.sensors[0].sensor_name = sensor.sensor_name
   }
 }

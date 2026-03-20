@@ -253,7 +253,7 @@ export class WidgetsPage implements OnInit {
       "name": this.newWidgetData.name,
       "border_flag": this.newWidgetData.borderFlag,
       "dateRange": 'last7days',
-      "dashboard_group_id": this.id,
+      "dashboard_group_id": this.dashId,
       "parameters": {
         "widgetType": this.newWidgetData.widgetType,
         "chartType": this.newWidgetData.chartType,
@@ -293,10 +293,11 @@ export class WidgetsPage implements OnInit {
       }
     }*/
     this.api.PostRequestRender('widgets', body).then((response: any) => {
+      console.log(response);
+      
 
       this.setOpen(false)
       this.GetWidgets()
-      //this.GetDasboards()
       this.newWidgetData = {
         name: "",
         size: "",

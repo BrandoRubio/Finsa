@@ -126,9 +126,9 @@ export class SimpleTimelineComponent implements OnInit, OnDestroy {
           html += `${label}`;
           html += '</div>';
 
-          // Máquina
+          // Dispositivo
           html += '<div style="margin-bottom: 6px;">';
-          html += `<span style="color: var(--ion-color-light);">Máquina: </span>`;
+          html += `<span style="color: var(--ion-color-light);">Dispositivo: </span>`;
           html += `<span style="color: var(--ion-color-secondary); font-weight: 600;">${data.x}</span>`;
           html += '</div>';
 
@@ -199,7 +199,7 @@ export class SimpleTimelineComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Actualiza la última barra de cada máquina extendiendo su tiempo final hasta "ahora"
+   * Actualiza la última barra de cada Dispositivo extendiendo su tiempo final hasta "ahora"
    */
   updateLastBarsToNow() {
     if (!this.chartOptions.series || this.chartOptions.series.length === 0) {
@@ -209,7 +209,7 @@ export class SimpleTimelineComponent implements OnInit, OnDestroy {
     const now = new Date().getTime();
     let hasUpdates = false;
 
-    // Recorrer cada serie (cada máquina)
+    // Recorrer cada serie (cada Dispositivo)
     const updatedSeries = this.chartOptions.series.map((serie: any) => {
       if (!serie.data || serie.data.length === 0) {
         return serie;

@@ -186,7 +186,7 @@
         </ion-toggle>
       </ion-item>
       <ion-item>
-        <ion-select label="Máquina:" color="primary" [(ngModel)]="copyWidgetData.sensors[0].machine_id"
+        <ion-select label="Dispositivo:" color="primary" [(ngModel)]="copyWidgetData.sensors[0].machine_id"
           label-placement="floating" interface="popover">
           <ion-select-option *ngFor="let mach of machines" [value]="mach.machine_id">
             {{ mach.machine_name }}

@@ -58,7 +58,9 @@ export class ThermometerComponent implements OnInit {
     this.copyWidgetData = JSON.parse(JSON.stringify(this.widgetData))
     //console.log(this.copyWidgetData.widgetType);
     this.api.GetRequestRender('machinesAndSensorsByOrganizations?organizations=' + this.widgetData.plant_id).then((response: any) => {
-      this.machines = response.items
+      this.machines = response.data
+      console.log(response);
+      
       this.isModalOpen = true;
     })
   }
@@ -107,14 +109,14 @@ export class ThermometerComponent implements OnInit {
     })
   }
   startSubscriptions() {
-    /*this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
+    this.ws.SuscribeById({ sensor_id: this.widgetData.sensors[0].sensor_id }, "sensor", (response) => {
       const lastValue = response.data.value
       this.lastDate = response.data.time
       this.updateTemperature(lastValue);
     }).then((ws) => {
     }).catch(err => {
       console.log(err);
-    });*/
+    });
   }
 
   public updateTemperature(temperature: number) {

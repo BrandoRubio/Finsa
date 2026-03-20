@@ -5,7 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonMenuButton, Io
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline } from 'ionicons/icons';
+import { menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, helpOutline, helpCircleOutline } from 'ionicons/icons';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -30,7 +30,7 @@ export class DevicesPage implements OnInit {
     private router: Router,
     private api: ApiService,
   ) {
-    addIcons({ menuOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline });
+    addIcons({ menuOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline, helpCircleOutline });
   }
 
   ngOnInit() {
@@ -44,9 +44,9 @@ export class DevicesPage implements OnInit {
 
   GetDevices() {
     this.api.GetRequestRender('plant/' + this.plantId + '/devices-sensors').then((response: any) => {
-      console.log(this.devices);
 
       this.devices = response.data
+      console.log(this.devices);
     })
   }
   ToggleMenu() {
