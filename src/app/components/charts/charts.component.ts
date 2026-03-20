@@ -287,6 +287,8 @@ export class ChartsComponent implements OnInit {
     sensores.forEach((sensor: any) => {
       const sensor_id = sensor.sensor_id;
       this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
+        console.log(data);
+        
         if (this.isPaused) return;
         const timestamp = new Date(data.data.time).getTime();
         const { start } = this.getDateRangeFromOption(this.widgetData.dateRange);
