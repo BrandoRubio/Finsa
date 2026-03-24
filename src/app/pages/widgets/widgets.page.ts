@@ -5,7 +5,7 @@ import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
-  IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonMenuButton, IonIcon, IonFab, IonFabButton, IonItem, IonButton,
+  IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonMenuButton, IonIcon, IonFab, IonFabButton, IonItem, IonButton, IonItemSliding,
   IonSelectOption, IonText, IonModal, IonInput, IonSelect, IonLoading, IonRippleEffect, IonToggle, IonCard, IonCardContent, IonCardHeader, IonBreadcrumb, IonBreadcrumbs,
   IonGrid, IonCol, IonRow, IonRouterLink,
 } from '@ionic/angular/standalone';
@@ -53,7 +53,7 @@ export type ChartOptions = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, GaugeComponent, ChartsComponent, HeatmapComponent,
-    CounterComponent, NumericComponent, ThermometerComponent, OnoffComponent, WaterTankComponent, NgxColorsModule, IonFab, IonFabButton, LogoComponent,
+    CounterComponent, NumericComponent, ThermometerComponent, OnoffComponent, WaterTankComponent, NgxColorsModule, IonFab, IonFabButton, LogoComponent, IonItemSliding,
     IonItem, IonSelectOption, IonText, IonModal, IonInput, IonSelect, IonLoading, DragDropModule, ResizableModule, IonRippleEffect, IonToggle,
     IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule,]
 })
@@ -294,7 +294,7 @@ export class WidgetsPage implements OnInit {
     }*/
     this.api.PostRequestRender('widgets', body).then((response: any) => {
       console.log(response);
-      
+
 
       this.setOpen(false)
       this.GetWidgets()

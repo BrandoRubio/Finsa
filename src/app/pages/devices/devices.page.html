@@ -27,32 +27,43 @@
 
   <!-- TOGGLE VISTA -->
   <div class="view-toggle">
-    <ion-button fill="clear" size="small" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
-      <ion-icon slot="icon-only" name="list-outline"></ion-icon>
-    </ion-button>
-    <ion-button fill="clear" size="small" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
-      <ion-icon slot="icon-only" name="grid-outline"></ion-icon>
-    </ion-button>
+    <div style="display:flex; gap:4px;" class="view-toggle-b">
+      <ion-button fill="clear" size="small" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+        <ion-icon slot="icon-only" name="list-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" size="small" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+        <ion-icon slot="icon-only" name="grid-outline"></ion-icon>
+      </ion-button>
+    </div>
   </div>
 
-  <!-- ─── VISTA LISTA (accordion) ─────────────────────────── -->
   <ion-accordion-group *ngIf="viewMode === 'list'">
     <ion-accordion *ngFor="let device of devices" [value]="'device-' + device.device_id">
+
       <ion-item slot="header" lines="none">
         <ion-icon slot="start" name="hardware-chip-outline"></ion-icon>
         <ion-label>
           <h2>{{ device.name }}</h2>
           <p>{{ device.token }}</p>
         </ion-label>
+        <ion-buttons slot="end">
+          <ion-button shape="round" title="copiar token" slot="end" color="secondary"
+            (click)="$event.stopPropagation(); copyFromDev(device)">
+            <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" size="small" (click)="OpenModal(device); $event.stopPropagation()">
+            <ion-icon slot="icon-only" name="pencil-outline" color="success"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" size="small" color="danger" (click)="DeleteDevice($event, device)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
         <ion-badge slot="end" [color]="device.is_active ? 'success' : 'medium'">
           {{ device.sensors.length }} sensores
         </ion-badge>
       </ion-item>
 
       <div slot="content" class="sensors-content">
-        <div *ngIf="device.sensors.length === 0" class="no-sensors">
-          <ion-label color="medium">Sin sensores configurados</ion-label>
-        </div>
         <div class="sensors-row" *ngIf="device.sensors.length > 0">
           <div class="sensor-card" *ngFor="let sensor of device.sensors">
             <div class="sensor-icon-wrap">
@@ -61,8 +72,7 @@
             <div class="sensor-body">
               <span class="sensor-title">{{ sensor.title }}</span>
               <span class="sensor-value" *ngIf="sensor.last_value !== null">
-                {{ sensor.last_value }}
-                <small>{{ sensor.unit }}</small>
+                {{ sensor.last_value }}<small>{{ sensor.unit }}</small>
               </span>
               <span class="sensor-value no-data" *ngIf="sensor.last_value === null">
                 — <small>sin datos</small>
@@ -70,11 +80,21 @@
             </div>
           </div>
         </div>
+        <div *ngIf="device.sensors.length === 0" class="no-sensors">
+          <ion-label color="medium">Sin sensores configurados</ion-label>
+        </div>
       </div>
+
     </ion-accordion>
+    <ion-item button lines="none" class="add-accordion-btn" (click)="OpenModal(null)">
+      <div class="add-icon-wrap" slot="start">
+        <ion-icon name="add-outline"></ion-icon>
+      </div>
+      <ion-label color="primary">Nuevo dispositivo</ion-label>
+    </ion-item>
   </ion-accordion-group>
 
-  <!-- ─── VISTA CUADRÍCULA (cards) ─────────────────────────── -->
+  <!-- ─── VISTA CUADRÍCULA ──────────────────────────────────── -->
   <ion-grid *ngIf="viewMode === 'grid'" class="grid-view">
     <ion-row>
       <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let device of devices">
@@ -83,18 +103,30 @@
           <ion-card-header>
             <div class="device-card-header">
               <ion-icon name="hardware-chip-outline" class="device-icon"></ion-icon>
-              <ion-badge [color]="device.is_active ? 'success' : 'medium'">
-                {{ device.is_active ? 'Activo' : 'Inactivo' }}
-              </ion-badge>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <ion-badge [color]="device.is_active ? 'success' : 'medium'">
+                  {{ device.is_active ? 'Activo' : 'Inactivo' }}
+                </ion-badge>
+                <ion-button fill="clear" title="copiar token" slot="end" size="small"
+                  style="--border-radius:50%; --padding-start:4px; --padding-end:4px;"
+                  (click)="$event.stopPropagation(); copyFromDev(device)">
+                  <ion-icon name="copy-outline" slot="icon-only" color="secondary"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" size="small" (click)="OpenModal(device)"
+                  style="--border-radius:50%; --padding-start:4px; --padding-end:4px;">
+                  <ion-icon slot="icon-only" name="pencil-outline" color="success"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" size="small" color="danger" (click)="DeleteDevice($event, device)"
+                  style="--border-radius:50%; --padding-start:4px; --padding-end:4px;">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </div>
             </div>
             <ion-card-title>{{ device.name }}</ion-card-title>
             <ion-card-subtitle>{{ device.token }}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
-            <div *ngIf="device.sensors.length === 0" class="no-sensors">
-              <span>Sin sensores configurados</span>
-            </div>
             <div class="sensors-row" *ngIf="device.sensors.length > 0">
               <div class="sensor-card" *ngFor="let sensor of device.sensors">
                 <div class="sensor-icon-wrap">
@@ -109,11 +141,86 @@
                 </span>
               </div>
             </div>
+            <div *ngIf="device.sensors.length === 0" class="no-sensors">
+              <span>Sin sensores configurados</span>
+            </div>
           </ion-card-content>
 
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
+        <ion-card class="device-card add-card" button (click)="OpenModal(null)">
+          <ion-card-content>
+            <div class="add-card-content">
+              <div class="add-icon-wrap">
+                <ion-icon name="add-outline"></ion-icon>
+              </div>
+              <p>Nuevo dispositivo</p>
+            </div>
+          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-</ion-content>
+  <!-- ─── MODAL CREAR / EDITAR ──────────────────────────────── -->
+  <ion-modal [isOpen]="modalOpen" (didDismiss)="CloseModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ selectedDevice ? 'Editar dispositivo' : 'Nuevo dispositivo' }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="CloseModal()">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <ion-list lines="full">
+
+          <ion-item>
+            <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input [(ngModel)]="form.name" placeholder="Ej. Compresor principal"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Tipo</ion-label>
+            <ion-input [(ngModel)]="form.type" placeholder="Ej. compresor, bomba, panel"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Descripción</ion-label>
+            <ion-textarea [(ngModel)]="form.description" placeholder="Descripción opcional" rows="2"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Token</ion-label>
+            <ion-input [(ngModel)]="form.token" readonly></ion-input>
+            <ion-buttons slot="end">
+              <ion-button shape="round" title="copiar" slot="end" color="primary" (click)="copyFromInputToken()">
+                <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button slot="end" fill="clear" size="small" (click)="RegenerateToken()" *ngIf="!selectedDevice">
+                <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+
+          <ion-item *ngIf="selectedDevice">
+            <ion-label>Activo</ion-label>
+            <ion-toggle [(ngModel)]="form.is_active" color="success" slot="end"></ion-toggle>
+          </ion-item>
+
+        </ion-list>
+
+        <div class="modal-actions">
+          <ion-button expand="block" (click)="SaveDevice()">
+            {{ selectedDevice ? 'Guardar cambios' : 'Crear dispositivo' }}
+          </ion-button>
+        </div>
+      </ion-content>
+
+    </ng-template>
+  </ion-modal>

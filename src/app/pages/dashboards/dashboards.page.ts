@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonCardSubtitle, IonCardTitle, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons,
-  IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, IonBadge
+  IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, IonBadge, IonModal, IonLabel, IonInput
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { addIcons } from 'ionicons';
 import { RouterModule } from '@angular/router';
-import { menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, trashOutline } from 'ionicons/icons';
+import { menuOutline, hardwareChipOutline, thermometer, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, calendarOutline, pencilOutline, trashOutline, addOutline, closeOutline } from 'ionicons/icons';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
 
@@ -21,7 +21,7 @@ import { LogoComponent } from 'src/app/components/logo/logo.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardSubtitle, IonCardTitle, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, IonBadge, LogoComponent,
-    IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule]
+    IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule, IonModal,  IonLabel, IonInput]
 })
 export class DashboardsPage implements OnInit {
 
@@ -31,13 +31,20 @@ export class DashboardsPage implements OnInit {
   parkName: any = ""
   dashboards: any = [];
   viewMode: 'list' | 'grid' = 'grid';
+  modalOpen: boolean = false;
+  selectedDash: any = null;
+
+  form: any = {
+    name: '',
+    description: ''
+  };
   constructor(
     private router: Router,
     private api: ApiService,
     private route: ActivatedRoute,
     private alerts: AlertsService
   ) {
-    addIcons({ menuOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, trashOutline, calendarOutline, pencilOutline, hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline, });
+    addIcons({ menuOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline, pencilOutline, trashOutline, addOutline, calendarOutline, closeOutline, hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline, });
   }
 
   ngOnInit() {
@@ -46,9 +53,9 @@ export class DashboardsPage implements OnInit {
     this.parkId = +this.route.snapshot.params['park_id'];
     this.parkName = this.router.getCurrentNavigation()?.extras?.state?.['parkName'] || '';
 
-    this.GetDashbaords()
+    this.GetDashboards()
   }
-  GetDashbaords() {
+  GetDashboards() {
     this.api.GetRequestRender('plant/' + this.plantId + '/dashboards').then((response: any) => {
       this.dashboards = response.data
     })
@@ -98,5 +105,64 @@ export class DashboardsPage implements OnInit {
         }
       });
     }
+  }
+
+  SaveDashboard() {
+    if (!this.form.name) {
+      //this.alerts.Info('El nombre es requerido');
+      return;
+    }
+    if (this.selectedDash) {
+      // Actualizar
+      this.api.PutRequestRender('dashboards/' + this.selectedDash.dashboard_id, {
+        name: this.form.name,
+        description: this.form.description
+      }).then((response: any) => {
+        if (!response.error) {
+          //this.alerts.Success('Dashboard actualizado');
+          this.CloseModal();
+          this.GetDashboards();
+        } else {
+          //this.alerts.Info(response.message);
+        }
+      });
+
+    } else {
+      // Crear
+      this.api.PostRequestRender('dashboards', {
+        plant_id: this.plantId,
+        name: this.form.name,
+        description: this.form.description,
+        index: 0
+      }).then((response: any) => {
+        if (!response.error) {
+          //this.alerts.Success('Dashboard creado');
+          this.CloseModal();
+          this.GetDashboards();
+        } else {
+          //this.alerts.Info(response.message);
+        }
+      });
+    }
+  }
+
+  // ─── MODAL ───────────────────────────────────────────────────
+  // ─── MODAL ───────────────────────────────────────────────────
+  OpenModal(dashboard: any = null) {
+    this.selectedDash = dashboard;
+    this.form = dashboard ? {
+      name: dashboard.name,
+      description: dashboard.description || ''
+    } : {
+      name: '',
+      description: ''
+    };
+    this.modalOpen = true;
+  }
+
+
+  CloseModal() {
+    this.modalOpen = false;
+    this.selectedDash = null;
   }
 }

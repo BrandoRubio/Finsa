@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, Input, ChangeDetectorRef, EventEmitter, Output, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import {
-  IonCard, IonCardHeader, IonText, IonCardTitle, IonCardContent, IonButtons, IonButton, IonIcon, IonToolbar, IonPopover, IonContent, IonList, IonItem, IonFab, IonFabButton, IonHeader,
+  IonCard, IonCardHeader, IonText, IonCardTitle, IonCardContent, IonButtons, IonButton, IonIcon, IonToolbar, IonPopover, IonContent, IonList, IonItem, IonFab, IonFabButton, IonHeader, IonItemSliding,
   IonTitle, IonSelect, IonSelectOption, IonModal, IonInput, IonDatetime, IonDatetimeButton, IonToggle
 } from '@ionic/angular/standalone';
 import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexYAxis, ApexDataLabels, ApexTooltip, ApexStroke, NgApexchartsModule, ChartType, ChartComponent, ApexLegend } from "ng-apexcharts";
@@ -36,7 +36,7 @@ export type ChartOptions = {
   templateUrl: './charts.component.html',
   styleUrls: ['./charts.component.scss'],
   standalone: true,
-  imports: [FormsModule, CommonModule, NgApexchartsModule, NgxColorsModule, IonText, IonCard, IonCardTitle, IonCardContent, IonButtons, IonButton, IonIcon, IonToolbar, IonPopover, IonContent, IonList, IonItem, IonFab, IonFabButton, IonInput,
+  imports: [FormsModule, CommonModule, NgApexchartsModule, NgxColorsModule, IonText, IonCard, IonCardTitle, IonCardContent, IonButtons, IonButton, IonIcon, IonToolbar, IonPopover, IonContent, IonList, IonItem, IonFab, IonFabButton, IonInput, IonItemSliding,
     IonHeader, IonTitle, IonSelect, IonSelectOption, IonModal, CdkDragHandle, IonDatetime, IonDatetimeButton, IonToggle],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -61,7 +61,7 @@ export class ChartsComponent implements OnInit {
     private alerts: AlertsService,
     private ws: WebSocketService,
     private api: ApiService) {
-    addIcons({moveOutline,ellipsisVertical,pencilOutline,trashOutline,checkmark});
+    addIcons({ moveOutline, ellipsisVertical, pencilOutline, trashOutline, checkmark });
     this.chartOptions = {
       series: [],
       chart: {
@@ -288,7 +288,7 @@ export class ChartsComponent implements OnInit {
       const sensor_id = sensor.sensor_id;
       this.ws.SuscribeById({ sensor_id }, "sensor", (data) => {
         console.log(data);
-        
+
         if (this.isPaused) return;
         const timestamp = new Date(data.data.time).getTime();
         const { start } = this.getDateRangeFromOption(this.widgetData.dateRange);
