@@ -5,7 +5,7 @@ import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
-  IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonMenuButton, IonIcon, IonFab, IonFabButton, IonItem, IonButton, IonItemSliding,
+  IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonMenuButton, IonIcon, IonFab, IonFabButton, IonItem, IonButton, IonItemSliding, IonItemOption, IonItemOptions,
   IonSelectOption, IonText, IonModal, IonInput, IonSelect, IonLoading, IonRippleEffect, IonToggle, IonCard, IonCardContent, IonCardHeader, IonBreadcrumb, IonBreadcrumbs,
   IonGrid, IonCol, IonRow, IonRouterLink,
 } from '@ionic/angular/standalone';
@@ -24,7 +24,7 @@ import { LogoComponent } from 'src/app/components/logo/logo.component';
 import { addIcons } from 'ionicons';
 import {
   hardwareChipOutline, thermometerOutline, flashOutline, pulseOutline, waterOutline, listOutline, gridOutline, pieChartOutline, albumsOutline, timeOutline,
-  calendarOutline, addCircleOutline, checkmark, menuOutline, trashOutline, pencilOutline, expandOutline
+  calendarOutline, addCircleOutline, checkmark, menuOutline, trashOutline, pencilOutline, expandOutline,
 } from 'ionicons/icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -54,7 +54,7 @@ export type ChartOptions = {
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonIcon, IonButtons, RouterModule, GaugeComponent, ChartsComponent, HeatmapComponent,
     CounterComponent, NumericComponent, ThermometerComponent, OnoffComponent, WaterTankComponent, NgxColorsModule, IonFab, IonFabButton, LogoComponent, IonItemSliding,
-    IonItem, IonSelectOption, IonText, IonModal, IonInput, IonSelect, IonLoading, DragDropModule, ResizableModule, IonRippleEffect, IonToggle,
+    IonItem, IonSelectOption, IonText, IonModal, IonInput, IonSelect, IonLoading, DragDropModule, ResizableModule, IonRippleEffect, IonToggle, IonItemOption, IonItemOptions,
     IonGrid, IonCol, IonRow, IonRouterLink, IonMenuButton, IonButton, IonBreadcrumb, IonBreadcrumbs, CommonModule, FormsModule,]
 })
 export class WidgetsPage implements OnInit {
